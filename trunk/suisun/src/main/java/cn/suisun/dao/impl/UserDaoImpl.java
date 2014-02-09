@@ -87,4 +87,13 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
+	@Override
+	public User getUserByAlbumId(String albumId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
 }

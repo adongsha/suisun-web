@@ -31,4 +31,6 @@ public interface UserDao extends BaseDao<User>{
 	public void update(User user);
 	
 	public User getUserByAccount(String account);
+	
+    public User getUserByAlbumId(String albumId);
 }

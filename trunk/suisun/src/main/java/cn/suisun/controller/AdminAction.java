@@ -37,7 +37,6 @@ import cn.suisun.vos.UserVo;
 public class AdminAction extends BaseAction {
 
 	private static final int pageSize = 10;
-	public static final String CONFIG_NAME = "config.properties";
 	@Resource
 	UserService userService;
 
@@ -195,7 +194,7 @@ public class AdminAction extends BaseAction {
 		User user = userService.getUserByUid(id);
 		
 		if(!StringUtils.isEmpty(user.getLogoUrl())){
-			StringBuffer fileName = new StringBuffer(PropertiesUtils.getProperty(CONFIG_NAME, "picUrl"));
+			StringBuffer fileName = new StringBuffer(PropertiesUtils.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
 			String pic = fileName.append(user.getLogoUrl()).toString();
 			user.setLogoUrl(pic);
 		}
