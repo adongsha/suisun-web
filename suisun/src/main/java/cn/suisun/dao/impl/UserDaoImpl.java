@@ -19,7 +19,7 @@ import cn.suisun.utils.jdbc.BaseDaoImpl;
 @Repository("UserDao")
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 
-	@Override
+	
 	public User getUserByAccountAndPwd(String account, String pwd) {
 		String hql = "from User where account = ? and password = ?";
 		List<User> list = getHibernateTemplate().find(hql,
@@ -27,12 +27,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
-	@Override
+	
 	public Serializable save(User user) {
 		return getHibernateTemplate().save(user);
 	}
 
-	@Override
+	
 	public List<User> getAllUserList(int currentPage, int pageSize, int power,
 			String search) {
 		StringBuffer hql = new StringBuffer("from User where 1 = 1 ");
@@ -47,7 +47,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return getPage(hql.toString(), currentPage, pageSize);
 	}
 
-	@Override
+	
 	public List<User> getAllUserList(int power, String search) {
 		StringBuffer hql = new StringBuffer("from User where 1 = 1");
 		if (power != 3) {
@@ -61,12 +61,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return getHibernateTemplate().find(hql.toString());
 	}
 
-	@Override
+	
 	public void delete(User user) {
 		getHibernateTemplate().delete(user);
 	}
 
-	@Override
+	
 	public User getUserByUid(String uuId) {
 		StringBuffer hql = new StringBuffer("from User where uuid = '").append(
 				uuId).append("'");
@@ -74,12 +74,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 		return list.size() > 0 ? list.get(0) : null;
 	}
 
-	@Override
+	
 	public void update(User user) {
 		getHibernateTemplate().update(user);
 	}
 
-	@Override
+	
 	public User getUserByAccount(String account) {
 		String hql = "from User where account = ?";
 		List<User> list = getHibernateTemplate().find(hql,

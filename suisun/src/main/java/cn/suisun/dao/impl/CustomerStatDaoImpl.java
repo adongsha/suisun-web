@@ -14,12 +14,12 @@ import cn.suisun.utils.jdbc.BaseDaoImpl;
 public class CustomerStatDaoImpl extends BaseDaoImpl<CustomerStat> implements CustomerStatDao{
 
 	
-	@Override
+	
 	public Serializable save(CustomerStat customerStat) {
 		return getHibernateTemplate().save(customerStat);
 	}
 
-	@Override
+	
 	public List<CustomerStat> getCustomerStatByPage(int currentPage,
 			int pageSize, String albumType, String album, int orderBy) {
 		StringBuffer hql = new StringBuffer("from CustomerStat where 1=1 ");
@@ -46,7 +46,7 @@ public class CustomerStatDaoImpl extends BaseDaoImpl<CustomerStat> implements Cu
 		return getPage(hql.toString(), currentPage, pageSize);
 	}
 
-	@Override
+	
 	public int getCustomerStatAmount(String albumType, String album, int orderBy) {
 		StringBuffer hql = new StringBuffer("from CustomerStat where 1=1 ");
 		if(!StringUtils.isEmpty(albumType)){
@@ -72,7 +72,7 @@ public class CustomerStatDaoImpl extends BaseDaoImpl<CustomerStat> implements Cu
 		return getHibernateTemplate().find(hql.toString()).size();
 	}
 
-	@Override
+	
 	public List<CustomerStat> getCustomerStatByUserId(int currentPage,
 			int pageSize, String id, String albumType, String album,int orderBy) {
 		
@@ -101,7 +101,7 @@ public class CustomerStatDaoImpl extends BaseDaoImpl<CustomerStat> implements Cu
 		return getPage(hql.toString(), currentPage, pageSize);
 	}
 
-	@Override
+	
 	public int getCustomerStatByIdAmount(String id, String albumType, String album,int orderBy) {
 		StringBuffer hql = new StringBuffer("from CustomerStat where 1=1 and userId = '")
 		.append(id).append("' ");

@@ -17,38 +17,38 @@ public class IndustryServiceImpl implements IndustryService{
 	@Resource
 	IndustryDao industryDao;
 	
-	@Override
+	
 	public List<Industry> getIndustryPage(int currentPage, int pageSize) {
 		
 		return industryDao.getIndustryListByPage(currentPage, pageSize);
 	}
 
-	@Override
+	
 	public int getIndustryListByPageAmount() {
 		return industryDao.getIndustryListByPageAmount();
 	}
 
-	@Override
+	
 	public Serializable add(Industry industry) {
 		return industryDao.save(industry);
 	}
 
-	@Override
+	
 	public void update(Industry industry) {
 		industryDao.update(industry);
 	}
 
-	@Override
+	
 	public void delete(Industry industry) {
 		industryDao.delete(industry);
 	}
 
-	@Override
+	
 	public List<Industry> getIndustry() {
 		return industryDao.getIndustry();
 	}
 
-	@Override
+	
 	public Industry getIndustryById(String id) {
 		return industryDao.getIndustryById(id);
 	}
