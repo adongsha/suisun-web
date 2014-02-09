@@ -29,7 +29,7 @@ public class AlbumAction extends BaseAction{
 	private AlbumService albumService ;
 
 	// 显示画册列表
-	@RequestMapping(params = { "method = showAlbums" }, method = RequestMethod.POST)
+	@RequestMapping(params = { "method=showAlbums" }, method = RequestMethod.POST)
 	public String showAlbums(@RequestParam("albumName") String albumName,@RequestParam("enterpriseName") String enterpriseName,ModelMap map) {
 		// 获取画册信息
 		List<Album> albums = this.albumService.getAlbumList(albumName, enterpriseName) ;
@@ -38,7 +38,7 @@ public class AlbumAction extends BaseAction{
 	}
 	
 	// 显示画册列表
-	@RequestMapping(params = { "method = forwardAlbums" }, method = RequestMethod.POST)
+	@RequestMapping(params = { "method=forwardAlbums" }, method = RequestMethod.GET)
 	public String forwardAlbums(ModelMap map) {
 		// 获取画册信息
 		List<Album> albums = this.albumService.getAlbumListByUserId(super.getUserId()) ;
