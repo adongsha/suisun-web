@@ -7,6 +7,10 @@ jQuery(function(){
 		window.location.href = "u/adminAction.htm?method=admin";
 	});
 	
+	jQuery(".ico2").click(function(){
+		window.location.href = "u/albumsAction.htm?method=forwardAlbums";
+	});
+	
 	jQuery(".ico3").click(function(){
 		window.location.href = "u/adminAction.htm?method=forwardAddUser";
 	});

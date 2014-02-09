@@ -97,7 +97,7 @@
 							<% 
 												Album album = albums.get(j) ;
 							%>
-												<img alt="" src="" width="300" height="200"/>
+												<img alt="" src="<%=basePath%>upload/bastketball.jpg" width="250" height="200"/>
 							<%
 							%>
 											</td>
