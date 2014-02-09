@@ -32,6 +32,12 @@ public class AlbumServiceImpl implements AlbumService{
 		return albumDao.getAlbumListByUserId(userId);
 	}
 
+	@Override
+	public Album getAlbumById(String id) {
+		return albumDao.getAlbumById(id);
+	}
+
+	
 	// 根据搜索条件获取画册信息
 	public List<Album> getAlbumList(String albumName,String enterpriseName) {
 		return this.albumDao.getAlbumList(albumName, enterpriseName) ;

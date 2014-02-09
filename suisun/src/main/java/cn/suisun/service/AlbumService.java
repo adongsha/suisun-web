@@ -16,6 +16,8 @@ public interface AlbumService {
 	// 根据用户ID获取画册信息
 	public List<Album> getAlbumListByUserId(String userId);
 	
+	public Album getAlbumById(String id);
+	
 	// 根据搜索条件获取画册信息
 	public List<Album> getAlbumList(String albumName,String enterpriseName) ;
 }

@@ -65,6 +65,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserByAccount(account);
 	}
 
+	@Override
+	public User getUserByAlbumId(String albumId) {
+		return userDao.getUserByAlbumId(albumId);
+	}
+
 	
 	
 }

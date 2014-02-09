@@ -21,6 +21,7 @@ public class Album {
 	private String albumName;
 	private String albumEnglish;
 	private Boolean isAutoDownload;
+	private String albumAlias;
 	private String albumCover;
 	private String albumPassword;
 	private Date   createTime;
@@ -76,6 +77,12 @@ public class Album {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public String getAlbumAlias() {
+		return albumAlias;
+	}
+	public void setAlbumAlias(String albumAlias) {
+		this.albumAlias = albumAlias;
 	}
 	
 	

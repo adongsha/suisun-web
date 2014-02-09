@@ -22,4 +22,6 @@ public interface UserService {
 	public void update(User user);
 	
 	public User getUserByAccount(String account);
+	
+	public User getUserByAlbumId(String albumId);
 }
