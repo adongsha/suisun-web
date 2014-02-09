@@ -17,8 +17,7 @@
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/main.css" />
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/table.css" />
 		<script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
-		<script type="text/javascript" src="ui/js/pageUser.js"></script>
-		<script type="text/javascript" src="ui/js/admin-main.js"></script>
+		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
 	</head>
 <body>
 	<div id="wrapper">
@@ -29,34 +28,34 @@
 
 				<div id="right_content">
 					<h2>
-						<label>画册管理</label> <label
-							style="margin-left: 100px; float: right;">
-								<input type="text" id="search" size="14" placeholder="用户名、企业名称"
-							<c:if test="${!empty search}">value="${search}" </c:if> /><a
-							href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
+						<label>画册管理</label> 
+						<label style="margin-left: 100px; float: right;">
+								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
+								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
 						</label>
-						<c:if test="${user.power == 0}">
-							<label style="float: right;">查看:<select id="power">
-									<option value="3"
-										<c:if test="${power == 3 }"> selected="selected"</c:if>>全部</option>
-									<option value="2"
-										<c:if test="${power == 2 }"> selected="selected"</c:if>>普通用户</option>
-									<option value="1"
-										<c:if test="${power == 1 }"> selected="selected"</c:if>>管理员</option>
-
-							</select> </label>
+						<c:if test="${not empty enterprises}">
+							<label style="float: right;">企业名称:
+								<select id="enterprises">
+									<option value="">
+										全部
+									</option>
+									<c:choose>
+										<c:when test="${not empty enterprises}">
+											<c:forEach items="${enterprises}" var="e">
+												<option value="${e}" <c:if test="${enterpriseName == e}">selected</c:if> >									
+													${e}
+												</option>
+											</c:forEach>
+										</c:when>
+									</c:choose>
+								</select>
+							</label>
 						</c:if>
 					</h2>
 					<table id="rounded-corner">
 						<tfoot>
 							<tr>
 								<td colspan="12">
-									<div class="form_sub_buttons">
-										<a href="#" class="button green" style="float: left;">全选</a> <a
-											href="#" class="button red" style="float: left;">删除选中的</a>
-									</div>
-
-
 									<div style="width: 400px;margin-top: 10px;float: right;">
 										<input type="hidden" value="${currentPage}" id="current">
 										<input type="hidden" value="${pageAll}" id="pageAll">
@@ -93,13 +92,28 @@
 										}
 										if(albums.get(j) != null){
 							%>
-											<td>
+											<td align="center">
 							<% 
 												Album album = albums.get(j) ;
 							%>
-												<img alt="" src="<%=basePath%>upload/bastketball.jpg" width="250" height="200"/>
-							<%
-							%>
+												<div style="background-color: white;">
+													<img alt="" src="<%=basePath%>upload/bastketball.jpg" style="margin: 4px" width="250" height="200"/>
+													<table style="width: 100%;">
+														<tr>
+															<td width="70%" style="padding-left: 10px">
+																<a href="javascript:void(0);" onclick="">
+																	<font size="3px" color="black">测试专用</font>
+																</a>
+															</td>
+															
+															<td width="30%" align="right" style="padding-right: 10px">
+																<a href="javascript:void(0);" id="edit" onclick="">
+																	<img src="ui/images/edit.png" border="0" />
+																</a>
+															</td>
+														</tr>
+													</table>
+												</div>
 											</td>
 							<%
 										}
