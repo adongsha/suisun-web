@@ -66,7 +66,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 
-			@Override
+			
 			public Object doInHibernate(Session session) throws HibernateException,
 					SQLException {
 				Query query = session.createQuery(hql);

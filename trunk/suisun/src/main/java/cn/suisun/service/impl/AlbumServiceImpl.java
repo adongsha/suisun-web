@@ -17,21 +17,23 @@ public class AlbumServiceImpl implements AlbumService{
 	@Resource
 	AlbumDao albumDao;
 	
-	@Override
+	// 新增画册
 	public Serializable Save(Album album) {
 		return albumDao.save(album);
 	}
 
-	@Override
+	// 获取画册信息
 	public List<Album> getAlbumList() {
 		return albumDao.getAlbumList();
 	}
 
-	@Override
+	// 根据用户ID获取画册信息
 	public List<Album> getAlbumListByUserId(String userId) {
-		
 		return albumDao.getAlbumListByUserId(userId);
 	}
 
-	
+	// 根据搜索条件获取画册信息
+	public List<Album> getAlbumList(String albumName,String enterpriseName) {
+		return this.albumDao.getAlbumList(albumName, enterpriseName) ;
+	}
 }

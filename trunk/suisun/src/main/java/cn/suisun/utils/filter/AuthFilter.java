@@ -18,12 +18,12 @@ import cn.suisun.utils.GlobalConstants;
 
 public class AuthFilter implements Filter{
 
-	@Override
+	
 	public void destroy() {
 		
 	}
 
-	@Override
+	
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
@@ -38,7 +38,7 @@ public class AuthFilter implements Filter{
 		
 	}
 
-	@Override
+	
 	public void init(FilterConfig arg0) throws ServletException {
 		
 	}

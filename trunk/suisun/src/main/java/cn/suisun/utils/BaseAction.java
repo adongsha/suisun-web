@@ -3,10 +3,11 @@ package cn.suisun.utils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
-import net.sf.json.JSONObject;
 import cn.suisun.beans.User;
 
 @Component

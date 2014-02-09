@@ -15,7 +15,6 @@ import cn.suisun.beans.User;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.BaseAction;
 import cn.suisun.utils.GlobalConstants;
-import cn.suisun.utils.MD5Util;
 
 @Controller
 @RequestMapping({ "/loginAction.htm" })

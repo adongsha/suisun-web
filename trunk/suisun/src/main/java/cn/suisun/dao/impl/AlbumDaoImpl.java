@@ -12,23 +12,37 @@ import cn.suisun.utils.jdbc.BaseDaoImpl;
 @Repository("AlbumDao")
 public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao{
 
-	@Override
+	// 新增画册
 	public Serializable save(Album album) {
-		
 		return getHibernateTemplate().save(album);
 	}
 
-	@Override
+	// 获取画册信息
 	public List<Album> getAlbumList() {
 		String hql = "from Album";
 		return getHibernateTemplate().find(hql);
 	}
 
-	@Override
+	// 根据用户ID获取画册信息
 	public List<Album> getAlbumListByUserId(String userId) {
 		String hql = "from Album where userId = ?";
 		return getHibernateTemplate().find(hql,new String[]{userId});
 	}
 
-	
+	// 根据查询条件获取画册信息
+	public List<Album> getAlbumList(String albumName,String enterpriseName) {
+		String hql = "select a from Album a,User u where a.userId = u.uuid" ;
+		StringBuffer condition = new StringBuffer() ;
+		
+		if(albumName != null && !"".equals(albumName)){
+			condition.append("a.albumName like '%"+ albumName +"%'") ;
+		}
+		
+		if(enterpriseName != null && !"".equals(enterpriseName)){
+			condition.append("u.enterpriseName = '"+ enterpriseName +"'") ;
+		}
+		// SQL拼接
+		hql += condition ;
+		return super.getHibernateTemplate().find(hql) ;
+	}
 }
