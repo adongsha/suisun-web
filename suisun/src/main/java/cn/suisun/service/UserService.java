@@ -24,4 +24,7 @@ public interface UserService {
 	public User getUserByAccount(String account);
 	
 	public User getUserByAlbumId(String albumId);
+	
+	// 获取所有企业名称
+    public List<String> getAllEnterprise() ;
 }

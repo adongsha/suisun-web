@@ -39,15 +39,15 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 
 	// 根据查询条件获取画册信息
 	public List<Album> getAlbumList(String albumName,String enterpriseName) {
-		String hql = "select a from Album a,User u where a.userId = u.uuid" ;
+		String hql = "select a from Album a,User u where a.userId = u.uuid " ;
 		StringBuffer condition = new StringBuffer() ;
 		
 		if(albumName != null && !"".equals(albumName)){
-			condition.append("a.albumName like '%"+ albumName +"%'") ;
+			condition.append("and a.albumName like '%"+ albumName +"%' ") ;
 		}
 		
 		if(enterpriseName != null && !"".equals(enterpriseName)){
-			condition.append("u.enterpriseName = '"+ enterpriseName +"'") ;
+			condition.append("and u.enterpriseName = '"+ enterpriseName +"' ") ;
 		}
 		// SQL拼接
 		hql += condition ;
