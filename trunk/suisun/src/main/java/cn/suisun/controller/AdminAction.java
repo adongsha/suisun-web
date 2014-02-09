@@ -182,7 +182,6 @@ public class AdminAction extends BaseAction {
 			map.put("code", -1);
 		} else {
 			map.put("code", 1);
-			setAttribute(GlobalConstants.SESSION_USER, user);
 		}
 
 		return "admin/tip";
@@ -270,6 +269,7 @@ public class AdminAction extends BaseAction {
 		userService.update(user);
 		map.put("id", userVo.getUuid());
 		map.put("code", 2);
+		setAttribute(GlobalConstants.SESSION_USER, user);
 		return "admin/tip";
 	}
 	
