@@ -32,6 +32,7 @@
 						<label style="margin-left: 100px; float: right;">
 								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
 								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
+								<input type="button" value="新建画册" id="addAlbum"/>
 						</label>
 						<c:if test="${not empty enterprises}">
 							<label style="float: right;">企业名称:
