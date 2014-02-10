@@ -88,4 +88,13 @@ public class AlbumAction extends BaseAction{
 		this.albumService.Save(album) ;
 		return "admin/album_add" ;
 	}
+	
+	// 跳转至画册修改界面
+	@RequestMapping(params = { "method=forwardUpdateAlbum" }, method = RequestMethod.GET)
+	public String forwardUpdateAlbum(@RequestParam("uuid") String uuid,ModelMap map) {
+		System.out.println("************ update") ;
+		// 获取画册信息
+		map.put("album", this.albumService.getAlbumById(uuid)) ;
+		return "admin/album_update";
+	}
 }
