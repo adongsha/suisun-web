@@ -1,11 +1,13 @@
 package cn.suisun.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,5 +69,23 @@ public class AlbumAction extends BaseAction{
 		map.put("albumName", "") ;
 		map.put("enterpriseName", "") ;
 		return "/admin/album_list";
+	}
+	
+	// 跳转至新增画册
+	@RequestMapping(params = { "method=forwardAddAlbum" }, method = RequestMethod.GET)
+	public String forwardAddAlbum(ModelMap map) {
+		// 保存信息
+		map.put("album", new Album()) ;
+		return "admin/album_add";
+	}
+		
+	// 新增画册
+	@RequestMapping(params = { "method=addAlbum" }, method = RequestMethod.POST)
+	public String addAlbum(@ModelAttribute("album") Album album,ModelMap map) {
+		// 保存画册信息
+		album.setUserId(super.getUserId()) ;
+		album.setCreateTime(new Date()) ;
+		this.albumService.Save(album) ;
+		return "admin/album_add" ;
 	}
 }
