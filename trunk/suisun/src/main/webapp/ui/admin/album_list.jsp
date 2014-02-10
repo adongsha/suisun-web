@@ -98,17 +98,19 @@
 												Album album = albums.get(j) ;
 							%>
 												<div style="background-color: white;">
-													<img alt="" src="<%=basePath%>upload/bastketball.jpg" style="margin: 4px" width="250" height="200"/>
+													<a href="javascript:void(0);" onclick="">
+														<img alt="" src="<%=basePath%><%=album.getAlbumCover()%>" style="margin: 4px" width="250" height="200"/>
+													</a>
 													<table style="width: 100%;">
 														<tr>
 															<td width="70%" style="padding-left: 10px">
 																<a href="javascript:void(0);" onclick="">
-																	<font size="3px" color="black">测试专用</font>
+																	<font size="3px" color="black"><%=album.getAlbumName()%></font>
 																</a>
 															</td>
 															
 															<td width="30%" align="right" style="padding-right: 10px">
-																<a href="javascript:void(0);" id="edit" onclick="">
+																<a href="javascript:void(0);" id="edit" onclick="editAlbum('<%=album.getUuid()%>')">
 																	<img src="ui/images/edit.png" border="0" />
 																</a>
 															</td>
