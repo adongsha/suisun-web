@@ -42,4 +42,32 @@ public class AlbumServiceImpl implements AlbumService{
 	public List<Album> getAlbumList(String albumName,String enterpriseName) {
 		return this.albumDao.getAlbumList(albumName, enterpriseName) ;
 	}
+
+	@Override
+	public Album getAlbumByAlias(String alias) {
+		return albumDao.getAlbumByAlias(alias);
+	}
+
+	@Override
+	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
+			int pageSize) {
+		return albumDao.getAlbumByKeyword(keyword, currentPage, pageSize);
+	}
+
+	@Override
+	public int getAlbumByKeywordAmount(String keyword) {
+		return albumDao.getAlbumByKeywordAmount(keyword);
+	}
+
+	@Override
+	public List<Album> getAlbumListByIndustryId(String industryId,int currentPage, int pageSize) {
+		return albumDao.getAlbumListByIndustryId(industryId, currentPage, pageSize);
+	}
+
+	@Override
+	public int getAlbumListByIndustryIdAmouint(String industryId) {
+		return albumDao.getAlbumListByIndustryIdAmouint(industryId);
+	}
+	
+	
 }
