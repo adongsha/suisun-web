@@ -38,19 +38,65 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 	}
 
 	// 根据查询条件获取画册信息
-	public List<Album> getAlbumList(String albumName,String enterpriseName) {
-		String hql = "select a from Album a,User u where a.userId = u.uuid " ;
-		StringBuffer condition = new StringBuffer() ;
-		
-		if(albumName != null && !"".equals(albumName)){
-			condition.append("and a.albumName like '%"+ albumName +"%' ") ;
+	public List<Album> getAlbumList(String albumName, String enterpriseName) {
+		String hql = "select a from Album a,User u where a.userId = u.uuid ";
+		StringBuffer condition = new StringBuffer();
+
+		if (albumName != null && !"".equals(albumName)) {
+			condition.append("and a.albumName like '%" + albumName + "%' ");
 		}
-		
-		if(enterpriseName != null && !"".equals(enterpriseName)){
-			condition.append("and u.enterpriseName = '"+ enterpriseName +"' ") ;
+
+		if (enterpriseName != null && !"".equals(enterpriseName)) {
+			condition
+					.append("and u.enterpriseName = '" + enterpriseName + "' ");
 		}
 		// SQL拼接
-		hql += condition ;
-		return super.getHibernateTemplate().find(hql) ;
+		hql += condition;
+		return super.getHibernateTemplate().find(hql);
 	}
+
+	@Override
+	public Album getAlbumByAlias(String alias) {
+		List<Album> list = getHibernateTemplate().find(
+				"from Album where albumAlias=?", new String[] { alias });
+
+		return list.size() > 0 ? list.get(0) : null;
+	}
+
+	@Override
+	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
+			int pageSize) {
+		StringBuffer hql = new StringBuffer(
+				"from Album a left User u join a.userId = u.uuid");
+		hql.append("where a.albumName = '").append(keyword)
+				.append("' or u.enterpriseName='").append(keyword).append("'");
+		return getPage(hql.toString(), currentPage, pageSize);
+	}
+
+	@Override
+	public int getAlbumByKeywordAmount(String keyword) {
+		StringBuffer hql = new StringBuffer(
+				"from Album a left User u join a.userId = u.uuid");
+		hql.append("where a.albumName = '").append(keyword)
+				.append("' or u.enterpriseName='").append(keyword).append("'");
+		return getHibernateTemplate().find(hql.toString()).size();
+	}
+
+	@Override
+	public List<Album> getAlbumListByIndustryId(String industryId,int currentPage, int pageSize){
+		StringBuffer hql  = new StringBuffer("from Album");
+		hql.append(" where industryId='").append(industryId).append("'");
+		
+		return getPage(hql.toString(), currentPage, pageSize);
+	}
+
+	@Override
+	public int getAlbumListByIndustryIdAmouint(String industryId) {
+		StringBuffer hql  = new StringBuffer("from Album");
+		hql.append(" where industryId='").append(industryId).append("'");
+		return getHibernateTemplate().find(hql.toString()).size();
+	}
+
+	
+	
 }
