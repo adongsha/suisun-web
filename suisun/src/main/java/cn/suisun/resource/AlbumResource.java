@@ -52,6 +52,13 @@ public class AlbumResource {
 
 	@Resource
 	IndustryService industryService;
+	
+	StringBuffer cover = new StringBuffer(PropertiesUtils.getProperty(
+			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
+	StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
+			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
+	StringBuffer logoUrl = new StringBuffer(PropertiesUtils.getProperty(
+			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
 
 	/**
 	 * 根据画册ID获取单个画册的所有信息接口。
@@ -234,12 +241,6 @@ public class AlbumResource {
 	@Path("getAlbumFormCompany")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAlbumFormCompany(@QueryParam("userId") String userId) {
-		StringBuffer cover = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-		StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-		StringBuffer logoUrl = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
         JSONObject result = new JSONObject();
 		User user = userService.getUserByUid(userId);
 		user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
@@ -279,7 +280,56 @@ public class AlbumResource {
 		return result.toString();
 	}
 	
-	
+	@GET
+	@Path("getAlbumFormKey")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAlbumFormKey(@QueryParam("keyword")String keyword,@QueryParam("currentPage")String currentPage,
+			@QueryParam("pageNum")String pageNum){
+
+		if(StringUtils.isEmpty(currentPage) || StringUtils.isEmpty(pageNum)){
+			return JsonUtil.msg(-1);
+		}
+		JSONObject result = new JSONObject();
+		List<Album> alList = albumService.getAlbumByKeyword(keyword, Integer.parseInt(currentPage), Integer.parseInt(pageNum));
+		JSONArray data = new JSONArray();
+		for (Album album : alList) {
+			album.setAlbumCover(cover.append(album.getAlbumCover()).toString());
+			JSONObject albumJson = JSONObject.fromObject(album);
+			
+			List<AlbumDirectory> adList = albumDirectoryService
+					.getAlbumDirectoryByAlbumId(album.getUserId());
+			JSONArray directoryList = new JSONArray();
+			for (AlbumDirectory a : adList) {
+				JSONObject adJson = JSONObject.fromObject(a);
+				List<AlbumPic> picList = albumPicService
+						.getAlbumPicListByADId(a.getUuid());
+				JSONArray photoList = new JSONArray();
+				for (AlbumPic pic : picList) {
+					pic.setPicUrl(picUrl.append(pic.getPicUrl()).toString());
+					JSONObject picJson = JSONObject.fromObject(pic);
+					photoList.add(picJson);
+				}
+				adJson.put("photoList", photoList);
+				directoryList.add(adJson);
+			}
+			albumJson.put("directoryList", directoryList);
+			User user = userService.getUserByAlbumId(album.getUuid());
+			user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
+			Industry industry = industryService.getIndustryById(user.getIndustryId());
+			JSONObject inJson = JSONObject.fromObject(industry);
+			JSONObject jsonUser = JSONObject.fromObject(user);
+			jsonUser.put("industry", inJson);
+			albumJson.put("user", jsonUser);
+			data.add(albumJson);
+		}
+    	int maxPage = (int) Math.ceil((double) (albumService.getAlbumByKeywordAmount(keyword)/ Integer.parseInt(pageNum)));
+		result.put("statuCode", 200);
+		result.put("data", data);
+		result.put("maxPage", maxPage);
+		result.put("currentPage", currentPage);
+		result.put("pageNum", pageNum);
+		return result.toString();
+	}
 
 	
 }
