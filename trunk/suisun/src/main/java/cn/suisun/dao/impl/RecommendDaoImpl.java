@@ -8,7 +8,7 @@ import cn.suisun.beans.Recommend;
 import cn.suisun.dao.RecommendDao;
 import cn.suisun.utils.jdbc.BaseDaoImpl;
 
-@Repository
+@Repository("RecommendDao")
 public class RecommendDaoImpl extends BaseDaoImpl<Recommend> implements RecommendDao{
 
 	@Override

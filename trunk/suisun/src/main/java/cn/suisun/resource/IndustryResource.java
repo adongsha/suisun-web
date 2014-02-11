@@ -27,11 +27,14 @@ import cn.suisun.service.IndustryService;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.JsonUtil;
-import cn.suisun.utils.PropertiesUtils;
-
+import cn.suisun.utils.PropertiesBean;
 @Component
 @Path("/m/industry/")
 public class IndustryResource {
+
+	
+	public IndustryResource() {
+	}
 
 	@Resource
 	UserService userService;
@@ -48,13 +51,8 @@ public class IndustryResource {
 	@Resource
 	AlbumPicService albumPicService;
 	
-	StringBuffer cover = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-	StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-	StringBuffer logoUrl = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
-
+	@Resource
+	PropertiesBean propertiesBean;
 
 	@GET
 	@Path("getIndustry")
@@ -82,6 +80,12 @@ public class IndustryResource {
 				|| StringUtils.isEmpty(industryId)) {
 			return JsonUtil.msg(-1, "参数不对");
 		}
+		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
+		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 		List<Album> alList = albumService.getAlbumListByIndustryId(industryId,
 				Integer.parseInt(currentPage), Integer.parseInt(pageNum));
 		

@@ -10,7 +10,7 @@ import cn.suisun.beans.Recommend;
 import cn.suisun.dao.RecommendDao;
 import cn.suisun.service.RecommendService;
 
-@Service
+@Service("RecommendService")
 public class RecommendServiceImpl implements RecommendService{
 
 	@Resource

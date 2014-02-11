@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -29,11 +30,13 @@ import cn.suisun.service.RecommendService;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.JsonUtil;
-import cn.suisun.utils.PropertiesUtils;
+import cn.suisun.utils.PropertiesBean;
+import cn.suisun.vos.SampleVo;
 
 @Component
-@Path("/m/album/")
+@Path("/album/")
 public class AlbumResource {
+
 
 	@Resource
 	UserService userService;
@@ -53,12 +56,20 @@ public class AlbumResource {
 	@Resource
 	IndustryService industryService;
 	
-	StringBuffer cover = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-	StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-	StringBuffer logoUrl = new StringBuffer(PropertiesUtils.getProperty(
-			GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
+	@Resource
+	PropertiesBean propertiesBean;
+	
+	
+	@GET
+	@Path("getSample/{sampleId}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public SampleVo getSample(@PathParam("sampleId")String sampleId) {
+		System.out.println("--->sampleDao:");
+		System.out.println("-------------------->"+sampleId);
+		System.out.println("sampleService-->");
+
+		return new SampleVo("1","wanghj");
+	}
 
 	/**
 	 * 根据画册ID获取单个画册的所有信息接口。
@@ -74,7 +85,7 @@ public class AlbumResource {
 			return JsonUtil.msg(-1);
 		}
 		Album album = albumService.getAlbumById(albumId);
-		String albumUrl = PropertiesUtils.getProperty(
+		String albumUrl = propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH);
 		JSONObject result = new JSONObject();
 		JSONObject data = JSONObject.fromObject(album);
@@ -82,7 +93,7 @@ public class AlbumResource {
 		JSONArray directoryList = new JSONArray();
 		List<AlbumDirectory> dList = albumDirectoryService
 				.getAlbumDirectoryByAlbumId(albumId);
-		StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
 		for (AlbumDirectory ad : dList) {
 			JSONObject adSub = JSONObject.fromObject(ad);
@@ -100,8 +111,8 @@ public class AlbumResource {
 		data.put("directoryList", directoryList);
 		JSONObject user = JSONObject.fromObject(userService.getUserByUid(album
 				.getUserId()));
-		StringBuffer logo = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
+		StringBuffer logo = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 		logo.append(user.get("logoUrl"));
 		user.put("logoUrl", logo.toString());
 		result.put("statuCode", 200);
@@ -110,7 +121,7 @@ public class AlbumResource {
 		return result.toString();
 	}
 
-	/**
+    /**
 	 * 根据画册别号ailas获取单个画册的所有信息接口。
 	 * 
 	 * @param albumAlias
@@ -124,7 +135,7 @@ public class AlbumResource {
 			return JsonUtil.msg(-1);
 		}
 		Album album = albumService.getAlbumByAlias(albumAlias);
-		String albumUrl = PropertiesUtils.getProperty(
+		String albumUrl = propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH);
 		JSONObject result = new JSONObject();
 		JSONObject data = JSONObject.fromObject(album);
@@ -132,7 +143,7 @@ public class AlbumResource {
 		JSONArray directoryList = new JSONArray();
 		List<AlbumDirectory> dList = albumDirectoryService
 				.getAlbumDirectoryByAlbumId(album.getUuid());
-		StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
 		for (AlbumDirectory ad : dList) {
 			JSONObject adSub = JSONObject.fromObject(ad);
@@ -150,8 +161,8 @@ public class AlbumResource {
 		data.put("directoryList", directoryList);
 		JSONObject user = JSONObject.fromObject(userService.getUserByUid(album
 				.getUserId()));
-		StringBuffer logo = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
+		StringBuffer logo = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 		logo.append(user.get("logoUrl"));
 		user.put("logoUrl", logo.toString());
 		result.put("statuCode", 200);
@@ -183,12 +194,12 @@ public class AlbumResource {
 		List<Recommend> reList = recommendService.getRecommendPage(
 				Integer.parseInt(currentPage), pageSizeInt);
 		JSONArray albumList = new JSONArray();
-		StringBuffer cover = new StringBuffer(PropertiesUtils.getProperty(
+		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-		StringBuffer picUrl = new StringBuffer(PropertiesUtils.getProperty(
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-		StringBuffer logoUrl = new StringBuffer(PropertiesUtils.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
+		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 		for (Recommend r : reList) {
 			Album album = albumService.getAlbumById(r.getAlbumId());
 			album.setAlbumCover(cover.append(album.getAlbumCover()).toString());
@@ -241,6 +252,12 @@ public class AlbumResource {
 	@Path("getAlbumFormCompany")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAlbumFormCompany(@QueryParam("userId") String userId) {
+		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
+		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
         JSONObject result = new JSONObject();
 		User user = userService.getUserByUid(userId);
 		user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
@@ -289,6 +306,12 @@ public class AlbumResource {
 		if(StringUtils.isEmpty(currentPage) || StringUtils.isEmpty(pageNum)){
 			return JsonUtil.msg(-1);
 		}
+		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
+		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
+		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 		JSONObject result = new JSONObject();
 		List<Album> alList = albumService.getAlbumByKeyword(keyword, Integer.parseInt(currentPage), Integer.parseInt(pageNum));
 		JSONArray data = new JSONArray();

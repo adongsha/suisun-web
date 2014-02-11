@@ -11,7 +11,7 @@ import cn.suisun.beans.Industry;
 import cn.suisun.dao.IndustryDao;
 import cn.suisun.service.IndustryService;
 
-@Service
+@Service("IndustryService")
 public class IndustryServiceImpl implements IndustryService{
 
 	@Resource

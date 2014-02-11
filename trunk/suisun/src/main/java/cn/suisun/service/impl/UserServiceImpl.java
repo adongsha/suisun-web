@@ -12,7 +12,7 @@ import cn.suisun.beans.User;
 import cn.suisun.dao.UserDao;
 import cn.suisun.service.UserService;
 
-@Service
+@Service("UserService")
 public class UserServiceImpl implements UserService {
 
 	@Resource
