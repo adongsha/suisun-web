@@ -20,4 +20,15 @@ public interface AlbumService {
 	
 	// 根据搜索条件获取画册信息
 	public List<Album> getAlbumList(String albumName,String enterpriseName) ;
+	
+	public Album getAlbumByAlias(String alias);
+	
+	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
+			int pageSize);
+	
+	public int getAlbumByKeywordAmount(String keyword);
+	
+	public List<Album> getAlbumListByIndustryId(String industryId,int currentPage, int pageSize);
+	
+	public int getAlbumListByIndustryIdAmouint(String industryId);
 }
