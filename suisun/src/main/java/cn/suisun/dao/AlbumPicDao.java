@@ -1,5 +1,6 @@
 package cn.suisun.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.suisun.beans.AlbumPic;
@@ -12,4 +13,6 @@ public interface AlbumPicDao {
 	 * @return
 	 */
 	public List<AlbumPic> getAlbumPicListByADId(String albumDirectroyId);
+	
+	public Serializable save(AlbumPic albumPic);
 }

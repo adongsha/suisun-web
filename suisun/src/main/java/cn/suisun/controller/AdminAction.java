@@ -193,7 +193,7 @@ public class AdminAction extends BaseAction {
 		User user = userService.getUserByUid(id);
 		
 		if(!StringUtils.isEmpty(user.getLogoUrl())){
-			StringBuffer fileName = new StringBuffer(PropertiesUtils.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_HCIMG_PATH));
+			StringBuffer fileName = new StringBuffer(PropertiesUtils.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
 			String pic = fileName.append(user.getLogoUrl()).toString();
 			user.setLogoUrl(pic);
 		}

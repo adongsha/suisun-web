@@ -17,9 +17,26 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.springframework.stereotype.Component;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import cn.suisun.beans.Album;
+import cn.suisun.beans.AlbumDirectory;
+import cn.suisun.beans.AlbumPic;
+import cn.suisun.service.AlbumDirectoryService;
+import cn.suisun.service.AlbumPicService;
+import cn.suisun.service.AlbumService;
+import cn.suisun.service.IndustryService;
+import cn.suisun.service.RecommendService;
 import cn.suisun.service.SampleService;
+import cn.suisun.service.UserService;
+import cn.suisun.utils.GlobalConstants;
+import cn.suisun.utils.JsonUtil;
+import cn.suisun.utils.PropertiesBean;
+import cn.suisun.utils.PropertiesUtils;
 import cn.suisun.vos.SampleVo;
 
 
@@ -37,6 +54,28 @@ public class SampleResource {
 
 	@Resource
 	SampleService sampleService;
+	
+	
+		@Resource
+	UserService userService;
+
+	@Resource
+	AlbumService albumService;
+
+	@Resource
+	AlbumDirectoryService albumDirectoryService;
+
+	@Resource
+	AlbumPicService albumPicService;
+
+	@Resource
+	RecommendService recommendService;
+
+	@Resource
+	IndustryService industryService;
+	
+	@Resource
+	PropertiesBean propertiesBean;
 	
 	
 	/**

@@ -12,7 +12,7 @@ import cn.suisun.dao.AlbumPicDao;
 import cn.suisun.service.AlbumDirectoryService;
 import cn.suisun.service.AlbumPicService;
 
-@Service
+@Service("AlbumPicService")
 public class AlbumPicServiceImpl implements AlbumPicService{
 
 	@Resource

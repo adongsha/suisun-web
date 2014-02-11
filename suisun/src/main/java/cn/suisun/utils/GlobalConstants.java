@@ -12,7 +12,7 @@ public class GlobalConstants {
 	
 	public static final String CONFIG_NAME = "config.properties";
 	
-	public static final String ALBUM_HCIMG_PATH = "album.hcing.path";
+	public static final String LOGO_IMG_PATH = "logo.img.path";
 	
 	public static final String ALBUM_PIC_PATH = "album.pic.path";
 	
