@@ -22,19 +22,18 @@ public class Recommend {
 
 	private String uuid;
 	private String albumId;
-	private int order;
+	private int index;
 
 	public Recommend() {
 	}
 
-	public Recommend(String uuid, String albumId, int order) {
+	public Recommend(String uuid, String albumId, int index) {
 		super();
 		this.uuid = uuid;
 		this.albumId = albumId;
-		this.order = order;
+		this.index = index;
 	}
 
-	
 	@Id
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
 	@GeneratedValue(generator = "systemUUID")
@@ -55,19 +54,18 @@ public class Recommend {
 		this.albumId = albumId;
 	}
 
-	public int getOrder() {
-		return order;
+	public int getIndex() {
+		return index;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	@Override
 	public String toString() {
-		return "Recommend [uuid=" + uuid + ", albumId=" + albumId + ", order="
-				+ order + "]";
+		return "Recommend [uuid=" + uuid + ", albumId=" + albumId + ", index="
+				+ index + "]";
 	}
 
-	
 }
