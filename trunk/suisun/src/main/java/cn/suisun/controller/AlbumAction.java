@@ -1,9 +1,11 @@
 package cn.suisun.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.suisun.beans.Album;
+import cn.suisun.beans.AlbumDirectory;
+import cn.suisun.beans.AlbumPic;
+import cn.suisun.service.AlbumDirectoryService;
+import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.BaseAction;
@@ -30,6 +36,14 @@ public class AlbumAction extends BaseAction{
 	// 画册管理接口
 	@Resource
 	private AlbumService albumService ;
+	
+	// 画册目录
+	@Resource
+	private AlbumDirectoryService directoryService ;
+	
+	// 画册图片接口
+	@Resource
+	private AlbumPicService picService ;
 	
 	// 用户接口
 	@Resource
@@ -96,5 +110,105 @@ public class AlbumAction extends BaseAction{
 		// 获取画册信息
 		map.put("album", this.albumService.getAlbumById(uuid)) ;
 		return "admin/album_update";
+	}
+	
+	// 跳转至新增画册
+	@RequestMapping(params = { "method=forwardAddDirectory" }, method = RequestMethod.GET)
+	public String forwardAddDirectory(@RequestParam("albumId") String albumId,ModelMap map) {
+		AlbumDirectory directory = new AlbumDirectory() ;
+		directory.setAlbumId(albumId) ;
+		// 保存信息
+		map.put("directory", directory) ;
+		return "admin/directory_add";
+	}
+	
+	// 新增画册目录
+	@RequestMapping(params = { "method=addDirectory" }, method = RequestMethod.POST)
+	public String addDirectory(@ModelAttribute("directory") AlbumDirectory directory,ModelMap map) {
+		// 保存画册目录信息
+		this.directoryService.save(directory) ;
+		return "admin/directory_add" ;
+	}
+	
+	// 跳转至画册目录列表
+	@RequestMapping(params = { "method=forwardDirectory" }, method = RequestMethod.GET)
+	public String forwardDirectory(@RequestParam("albumId") String albumId,ModelMap map) {
+		// 获取所有画册目录
+		List<AlbumDirectory> directorys = this.directoryService.getAlbumDirectoryByAlbumId(albumId) ;
+		
+		String directoryId = directorys.get(0).getUuid() ;
+		// 获取画册信息
+		List<AlbumPic> picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		
+		// 保存信息
+		map.put("albumId", albumId) ;
+		map.put("directorys", directorys) ;
+		map.put("picList", picList) ;
+		map.put("directoryId", directoryId) ;
+ 		return "/admin/album_directory";
+	}
+	
+	// 跳转至修改画册目录
+	@RequestMapping(params = { "method=forwardUpdateDirectory" }, method = RequestMethod.GET)
+	public String forwardUpdateDirectory(@RequestParam("uuid") String uuid,@RequestParam("albumId") String albumId,ModelMap map) {
+		// 获取画册目录信息
+		AlbumDirectory directory = this.directoryService.getDirectoryByAlbumId(uuid, albumId) ;
+		// 保存信息
+		map.put("directory", directory) ;
+ 		return "admin/directory_update";
+	}
+	
+	// 修改画册目录
+	@RequestMapping(params = { "method=updateDirectory" }, method = RequestMethod.POST)
+	public String updateDirectory(@ModelAttribute("directory") AlbumDirectory directory,ModelMap map) {
+		// 修改画册目录信息
+		this.directoryService.update(directory) ;		
+ 		return "admin/directory_update";
+	}
+	
+	// 删除画册目录
+	@RequestMapping(params = { "method=deleteDirectory" }, method = RequestMethod.POST)
+	public void deleteDirectory(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {
+		// 删除画册目录信息
+		this.directoryService.deleteById(uuid) ;
+		
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 跳转至画册目录列表
+	@RequestMapping(params = { "method=forwardAddPicture" }, method = RequestMethod.GET)
+	public String forwardAddPicture(@RequestParam("directoryId") String directoryId,ModelMap map) {
+		AlbumPic pic = new AlbumPic() ;
+		pic.setAlbumDirectoryId(directoryId) ;
+		// 保存信息
+		map.put("picture", pic) ;
+ 		return "/admin/picture_add";
+	}
+	
+	// 新增图片信息
+	@RequestMapping(params = { "method=addPicture" }, method = RequestMethod.POST)
+	public String addPicture(@ModelAttribute("picture") AlbumPic pic,ModelMap map) {
+		this.picService.save(pic) ;
+ 		return "/admin/picture_add";
+	}
+	
+	// 显示目录图片
+	@RequestMapping(params = { "method=showPicture" }, method = RequestMethod.GET)
+	public String showPicture(@RequestParam("albumId") String albumId,@RequestParam("directoryId") String directoryId,ModelMap map) {
+		// 获取所有画册目录
+		List<AlbumDirectory> directorys = this.directoryService.getAlbumDirectoryByAlbumId(albumId) ;
+		// 获取画册信息
+		List<AlbumPic> picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		
+		// 保存信息
+		map.put("albumId", albumId) ;
+		map.put("directorys", directorys) ;
+		map.put("picList", picList) ;
+		map.put("directoryId", directoryId) ;
+ 		return "/admin/album_directory";
 	}
 }
