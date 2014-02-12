@@ -276,4 +276,16 @@ public class AlbumAction extends BaseAction{
 		map.put("flag", "success") ;
  		return "/admin/album_publish";
 	}
+	
+	@RequestMapping(params = { "method=deleltePicture" }, method = RequestMethod.POST)
+	public void deleltePicture(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {
+		// 删除画册目录信息
+		this.picService.deleteById(uuid) ;
+		
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
