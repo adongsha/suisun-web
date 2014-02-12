@@ -83,11 +83,15 @@ function addAlbum(){
 	window.open(uri,'新建画册','height=580,width=620,top=50,left=310,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
 }
 
+// 跳转至画册目录
+function forwardDirectory(){
+	window.location.href = "u/albumsAction.htm?method=forwardDirectory&albumId=" + $("#uuid").val() ;
+}
+
 // 跳转至画册修改界面
 function editAlbum(uuid){
 	var uri = "u/albumsAction.htm?method=forwardUpdateAlbum&uuid=" + uuid ;
-	alert(uri) ;
-	window.open(uri,'画册信息','height=580,width=620,top=50,left=310,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
+	window.open(uri,'画册信息','height=560,width=420,top=50,left=510,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
 }
 
 // 保存画册信息
@@ -107,5 +111,4 @@ function saveAlbum(){
 	}
 	// 提交表单
 	$("#albumForm").submit() ;
-	window.close() ;
 }
