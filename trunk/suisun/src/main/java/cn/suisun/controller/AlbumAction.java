@@ -1,6 +1,7 @@
 package cn.suisun.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.suisun.beans.Album;
 import cn.suisun.beans.AlbumDirectory;
 import cn.suisun.beans.AlbumPic;
+import cn.suisun.beans.AlbumUpdate;
 import cn.suisun.service.AlbumDirectoryService;
 import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
@@ -30,8 +32,6 @@ import cn.suisun.utils.BaseAction;
 @Controller
 @RequestMapping({ "/u/albumsAction.htm" })
 public class AlbumAction extends BaseAction{
-
-	private static final int pageSize = 10;
 	
 	// 画册管理接口
 	@Resource
@@ -100,9 +100,22 @@ public class AlbumAction extends BaseAction{
 		album.setUserId(super.getUserId()) ;
 		album.setCreateTime(new Date()) ;
 		this.albumService.Save(album) ;
+		// 保存信息
+		map.put("flag", "success") ;
 		return "admin/album_add" ;
 	}
-	
+
+	// 修改画册信息
+	@RequestMapping(params = { "method=updateAlbum" }, method = RequestMethod.POST)
+	public String updateAlbum(@ModelAttribute("album") Album album,ModelMap map) {
+		// 保存画册信息
+		album.setUserId(super.getUserId()) ;
+		this.albumService.update(album) ;
+		// 保存信息
+		map.put("flag", "success") ;
+		return "admin/album_update" ;
+	}
+		
 	// 跳转至画册修改界面
 	@RequestMapping(params = { "method=forwardUpdateAlbum" }, method = RequestMethod.GET)
 	public String forwardUpdateAlbum(@RequestParam("uuid") String uuid,ModelMap map) {
@@ -127,6 +140,8 @@ public class AlbumAction extends BaseAction{
 	public String addDirectory(@ModelAttribute("directory") AlbumDirectory directory,ModelMap map) {
 		// 保存画册目录信息
 		this.directoryService.save(directory) ;
+		// 保存信息
+		map.put("flag", "success") ;
 		return "admin/directory_add" ;
 	}
 	
@@ -136,9 +151,13 @@ public class AlbumAction extends BaseAction{
 		// 获取所有画册目录
 		List<AlbumDirectory> directorys = this.directoryService.getAlbumDirectoryByAlbumId(albumId) ;
 		
-		String directoryId = directorys.get(0).getUuid() ;
-		// 获取画册信息
-		List<AlbumPic> picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		String directoryId = "" ;
+		List<AlbumPic> picList = new ArrayList<AlbumPic>() ;
+		if(directorys != null && !directorys.isEmpty()){
+			directoryId = directorys.get(0).getUuid() ;
+			// 获取画册信息
+			picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		}
 		
 		// 保存信息
 		map.put("albumId", albumId) ;
@@ -162,7 +181,9 @@ public class AlbumAction extends BaseAction{
 	@RequestMapping(params = { "method=updateDirectory" }, method = RequestMethod.POST)
 	public String updateDirectory(@ModelAttribute("directory") AlbumDirectory directory,ModelMap map) {
 		// 修改画册目录信息
-		this.directoryService.update(directory) ;		
+		this.directoryService.update(directory) ;
+		// 保存信息
+		map.put("flag", "success") ;
  		return "admin/directory_update";
 	}
 	
@@ -189,11 +210,33 @@ public class AlbumAction extends BaseAction{
  		return "/admin/picture_add";
 	}
 	
+	// 跳转至修改画册图片
+	@RequestMapping(params = { "method=forwardUpdatePicture" }, method = RequestMethod.GET)
+	public String forwardUpdatePicture(@RequestParam("uuid") String uuid,ModelMap map) {
+		AlbumPic pic = this.picService.getPicById(uuid) ;
+		// 保存信息
+		map.put("picture", pic) ;
+ 		return "/admin/picture_update";
+	}
+	
 	// 新增图片信息
 	@RequestMapping(params = { "method=addPicture" }, method = RequestMethod.POST)
 	public String addPicture(@ModelAttribute("picture") AlbumPic pic,ModelMap map) {
+		// 刚提交图片
+		pic.setAudit(0) ;
 		this.picService.save(pic) ;
+		// 保存信息
+		map.put("flag", "success") ;
  		return "/admin/picture_add";
+	}
+	
+	// 修改图片信息
+	@RequestMapping(params = { "method=updatePicture" }, method = RequestMethod.POST)
+	public String updatePicture(@ModelAttribute("picture") AlbumPic pic,ModelMap map) {
+		this.picService.update(pic) ;
+		// 保存信息
+		map.put("flag", "success") ;
+ 		return "/admin/picture_update";
 	}
 	
 	// 显示目录图片
@@ -210,5 +253,27 @@ public class AlbumAction extends BaseAction{
 		map.put("picList", picList) ;
 		map.put("directoryId", directoryId) ;
  		return "/admin/album_directory";
+	}
+	
+	// 跳转至画册发布更新
+	@RequestMapping(params = { "method=forwardPublishInfo" }, method = RequestMethod.GET)
+	public String forwardPublishInfo(@RequestParam("albumId") String albumId,ModelMap map) {
+		AlbumUpdate publish = new AlbumUpdate() ;
+		publish.setAlbumId(albumId) ;
+		// 保存信息
+		map.put("publish", publish) ;
+ 		return "/admin/album_publish";
+	}
+	
+	// 跳转至画册发布更新
+	@RequestMapping(params = { "method=addPublishInfo" }, method = RequestMethod.POST)
+	public String addPublishInfo(@ModelAttribute("publish") AlbumUpdate publish,ModelMap map) {
+		publish.setUserId(super.getUserId()) ;
+		publish.setAudit(0) ;
+		// 保存发布信息
+		this.albumService.savePublish(publish) ;
+		// 保存信息
+		map.put("flag", "success") ;
+ 		return "/admin/album_publish";
 	}
 }
