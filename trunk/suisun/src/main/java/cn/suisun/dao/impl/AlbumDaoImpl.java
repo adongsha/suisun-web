@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import cn.suisun.beans.Album;
+import cn.suisun.beans.AlbumUpdate;
 import cn.suisun.dao.AlbumDao;
 import cn.suisun.utils.jdbc.BaseDaoImpl;
 
@@ -18,6 +19,11 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 		return getHibernateTemplate().save(album);
 	}
 
+	// 修改画册
+	public void update(Album album){
+		super.getHibernateTemplate().update(album) ;
+	}
+	
 	// 获取画册信息
 	public List<Album> getAlbumList() {
 		String hql = "from Album";
@@ -97,6 +103,9 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 		return getHibernateTemplate().find(hql.toString()).size();
 	}
 
-	
-	
+	// 保存发布信息
+	public void savePublish(AlbumUpdate publish) {
+		super.getHibernateTemplate().save(publish) ;
+	}
+
 }
