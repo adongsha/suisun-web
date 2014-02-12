@@ -84,8 +84,8 @@ function addAlbum(){
 }
 
 // 跳转至画册目录
-function forwardDirectory(){
-	window.location.href = "u/albumsAction.htm?method=forwardDirectory&albumId=" + $("#uuid").val() ;
+function forwardDirectory(uuid){
+	window.location.href = "u/albumsAction.htm?method=forwardDirectory&albumId=" + uuid ;
 }
 
 // 跳转至画册修改界面
