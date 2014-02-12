@@ -8,18 +8,24 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.suisun.beans.Album;
+import cn.suisun.beans.AlbumUpdate;
 import cn.suisun.dao.AlbumDao;
 import cn.suisun.service.AlbumService;
 
 @Service("AlbumService")
-public class AlbumServiceImpl implements AlbumService{
+public class AlbumServiceImpl implements AlbumService {
 
 	@Resource
 	AlbumDao albumDao;
-	
+
 	// 新增画册
 	public Serializable Save(Album album) {
 		return albumDao.save(album);
+	}
+
+	// 修改画册
+	public void update(Album album) {
+		this.update(album);
 	}
 
 	// 获取画册信息
@@ -37,10 +43,14 @@ public class AlbumServiceImpl implements AlbumService{
 		return albumDao.getAlbumById(id);
 	}
 
-	
 	// 根据搜索条件获取画册信息
-	public List<Album> getAlbumList(String albumName,String enterpriseName) {
-		return this.albumDao.getAlbumList(albumName, enterpriseName) ;
+	public List<Album> getAlbumList(String albumName, String enterpriseName) {
+		return this.albumDao.getAlbumList(albumName, enterpriseName);
+	}
+	
+	// 保存发布信息
+	public void savePublish(AlbumUpdate publish) {
+		this.albumDao.savePublish(publish) ;
 	}
 
 	@Override
