@@ -25,7 +25,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 	// 修改画册
 	public void update(Album album) {
-		this.update(album);
+		this.albumDao.update(album);
 	}
 
 	// 获取画册信息
