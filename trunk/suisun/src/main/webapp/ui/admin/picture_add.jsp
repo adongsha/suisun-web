@@ -18,7 +18,7 @@
 		<script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 		<script type="text/javascript" src="ui/js/asyncbox/AsyncBox.v1.4.5.js" charset="UTF-8"></script>
-		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="ui/js/directory.js" charset="UTF-8"></script>
 		<script type="text/javascript">
 			var flag = '${flag}' ;
 			if(flag == "success"){
@@ -29,39 +29,23 @@
 		</script>
 	</head>
 	
-	<body onload="document.getElementById('albumName').focus()">
-		<form:form id="albumForm" action="u/albumsAction.htm?method=updateAlbum" method="post" commandName="album">
-			<form:hidden path="uuid"/>
-			<form:hidden path="createTime"/>
+	<body onload="document.getElementById('picName').focus()">
+		<form:form id="pictureForm" action="u/albumsAction.htm?method=addPicture" method="post" commandName="picture">
+			<form:hidden path="albumDirectoryId"/>
 			<table style="width: 100%;height: auto;border: 0px;">
 				<tr>
 					<td style="padding-left: 50px;padding-top: 20px;">
-						画册名称 <form:input path="albumName"/>
+						图片名称 <form:input path="picName"/>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						英文名称 <form:input path="albumEnglish"/>
+						英文名称 <form:input path="englishName"/>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						画册别名 <form:input path="albumAlias"/>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top: 20px;padding-left: 50px;">
-						访问密码 <form:password path="albumPassword" />
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top: 5px;padding-left: 50px;font-size: 12" align="center">
-						不需要访问密码请留空
-					</td>
-				</tr>
-				<tr>
-					<td style="padding-top: 20px;padding-left: 50px;">
-						自动下载 <form:checkbox path="isAutoDownload"/>
+						图片序号 <form:input path="indexPic"/>
 					</td>
 				</tr>
 				<tr>
@@ -69,9 +53,9 @@
 						<table>
 							<tr>
 								<td style="font-size: 12">
-									<form:hidden path="albumCover" />
+									<form:hidden path="picUrl" />
 									<input type="file" id="uploadifyFile" name="uploadifyFile" />
-									请按A4纸比例来制作LOGO，选择要上传的文件后，请点击“上传”按钮
+									请按A4纸比例来制作图片，选择要上传的文件后，请点击“上传”按钮
 								</td>
 							</tr>
 						</table>
@@ -79,13 +63,13 @@
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						<img id="albumImg" src="<%=basePath%>${album.albumCover}" width="300" height="200">
+						<img id="pictureImg" src="" width="300" height="200">
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" align="center" style="padding-top: 20px;">
-						<input type="button" value="修改" class="btn btn-primary" onclick="saveAlbum()"/>
+						<input type="button" value="保存" class="btn btn-primary" onclick="savePicture()"/>
 						<input type="reset" value="重置" class="btn"/>
 					</td>
 				</tr>

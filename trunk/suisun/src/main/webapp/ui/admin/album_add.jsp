@@ -19,6 +19,14 @@
 		<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 		<script type="text/javascript" src="ui/js/asyncbox/AsyncBox.v1.4.5.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
+		<script type="text/javascript">
+			var flag = '${flag}' ;
+			if(flag == "success"){
+				alert("保存成功") ;
+				window.opener.window.location.reload() ;
+				window.close() ;
+			}
+		</script>
 	</head>
 	
 	<body onload="document.getElementById('albumName').focus()">
@@ -45,6 +53,11 @@
 					</td>
 				</tr>
 				<tr>
+					<td align="center" style="padding-top: 5px;padding-left: 50px;font-size: 12;">
+						不需要访问密码请留空
+					</td>
+				</tr>
+				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
 						自动下载 <form:checkbox path="isAutoDownload"/>
 					</td>
@@ -53,9 +66,10 @@
 					<td style="padding-top: 20px;padding-left: 50px;">
 						<table>
 							<tr>
-								<td>
+								<td style="font-size: 12;">
 									<form:hidden path="albumCover" />
 									<input type="file" id="uploadifyFile" name="uploadifyFile" />
+									请按A4纸比例来制作LOGO，选择要上传的文件后，请点击“上传”按钮
 								</td>
 							</tr>
 						</table>
