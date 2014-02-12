@@ -4,12 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 import cn.suisun.beans.Album;
+import cn.suisun.beans.AlbumUpdate;
 
 public interface AlbumService {
 
 	// 新增画册
 	public Serializable Save(Album album);
-
+	
+	// 修改画册
+	public void update(Album album) ;
+	
 	// 获取画册信息
 	public List<Album> getAlbumList();
 
@@ -20,6 +24,9 @@ public interface AlbumService {
 	
 	// 根据搜索条件获取画册信息
 	public List<Album> getAlbumList(String albumName,String enterpriseName) ;
+	
+	// 保存发布信息
+	public void savePublish(AlbumUpdate publish) ;
 	
 	public Album getAlbumByAlias(String alias);
 	
