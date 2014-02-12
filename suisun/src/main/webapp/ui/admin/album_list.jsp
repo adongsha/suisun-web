@@ -30,45 +30,30 @@
 					<h2>
 						<label>画册管理</label> 
 						<label style="margin-left: 100px; float: right;">
+								<c:if test="${not empty enterprises}">
+									企业名称:
+										<select id="enterprises" style="margin-right: 20">
+											<option value="">
+												全部
+											</option>
+											<c:choose>
+												<c:when test="${not empty enterprises}">
+													<c:forEach items="${enterprises}" var="e">
+														<option value="${e}" <c:if test="${enterpriseName == e}">selected</c:if> >									
+															${e}
+														</option>
+													</c:forEach>
+												</c:when>
+											</c:choose>
+										</select>
+								</c:if>
 								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
 								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
 								<input type="button" value="新建画册" id="addAlbum"/>
 						</label>
-						<c:if test="${not empty enterprises}">
-							<label style="float: right;">企业名称:
-								<select id="enterprises">
-									<option value="">
-										全部
-									</option>
-									<c:choose>
-										<c:when test="${not empty enterprises}">
-											<c:forEach items="${enterprises}" var="e">
-												<option value="${e}" <c:if test="${enterpriseName == e}">selected</c:if> >									
-													${e}
-												</option>
-											</c:forEach>
-										</c:when>
-									</c:choose>
-								</select>
-							</label>
-						</c:if>
 					</h2>
-					<table id="rounded-corner">
-						<tfoot>
-							<tr>
-								<td colspan="12">
-									<div style="width: 400px;margin-top: 10px;float: right;">
-										<input type="hidden" value="${currentPage}" id="current">
-										<input type="hidden" value="${pageAll}" id="pageAll">
-										当前第${currentPage}页&nbsp;&nbsp;一共${pageAll}页&nbsp;&nbsp; <input
-											type="button" value="上一页" onclick="page.per();" />&nbsp;&nbsp;
-										<input type="button" value="下一页" onclick="page.next()" />&nbsp;&nbsp;
-										<input type="text" style="width: 30px;"
-											value="${currentPage }" name="currentPage" />&nbsp;&nbsp; <input
-											type="button" value="确认" onclick="page.jump();" />&nbsp;&nbsp;
-									</div></td>
-							</tr>
-						</tfoot>
+					<table>
+						
 						<tbody>
 							<% 
 								List<Album> albums = (List<Album>)request.getAttribute("albums") ;
@@ -93,12 +78,13 @@
 										}
 										if(albums.get(j) != null){
 							%>
-											<td align="center">
+											<td align="left">
 							<% 
 												Album album = albums.get(j) ;
 							%>
-												<div style="background-color: white;">
-													<a href="javascript:void(0);" onclick="">
+												<div style="background-color: white; width: 280;height: 240;text-align: center;">
+													<input type="hidden" id="uuid" value="<%=album.getUuid()%>"/>
+													<a href="javascript:void(0);" onclick="forwardDirectory()">
 														<img alt="" src="<%=basePath%><%=album.getAlbumCover()%>" style="margin: 4px" width="250" height="200"/>
 													</a>
 													<table style="width: 100%;">
