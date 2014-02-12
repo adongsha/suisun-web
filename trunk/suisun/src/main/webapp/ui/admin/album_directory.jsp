@@ -45,7 +45,10 @@
 							<input type="button" value="查看画册二维码" class="btn"/>
 							<input type="button" value="上传图片" onclick="forwardAddPicture('${directoryId}')" class="btn"/>
 							<input type="button" value="编辑名片" id="editCard" class="btn"/>
-							<input type="button" value="发布更新" class="btn" onclick="forwardPublishInfo()"/>
+							<c:if test="${sessionScope.user.power == 0 || sessionScope.user.power == 1}">
+								<input type="button" value="发布更新" class="btn" onclick="forwardPublishInfo()"/>
+							</c:if>
+							
 						</label>
 					</h2>
 					<table>
@@ -117,19 +120,22 @@
 											%>
 																<div style="background-color: white;margin-top: 10px;">
 																	<a href="javascript:void(0);" onclick="">
-																		<img alt="" src="<%=basePath%><%=p.getPicUrl()%>" style="margin: 4px" width="300" height="200"/>
+																		<img alt="" src="<%=basePath%><%=p.getPicUrl()%>" style="margin: 10px" width="300" height="200"/>
 																	</a>
 																	<table style="width: 100%;">
 																		<tr>
-																			<td width="70%" style="padding-left: 10px">
+																			<td width="70%" style="padding-left: 10px;padding-bottom: 10px;">
 																				<a href="javascript:void(0);" onclick="">
 																					<font size="3px" color="black"><%=p.getPicName()%></font>
 																				</a>
 																			</td>
 																			
-																			<td width="30%" align="right" style="padding-right: 10px">
+																			<td width="30%" align="right" style="padding-right: 10px;padding-bottom: 10px;">
 																				<a href="javascript:void(0);" id="edit" onclick="editPicture('<%=p.getUuid()%>')">
 																					<img src="ui/images/edit.png" border="0" />
+																				</a>
+																				<a style="padding-left: 5px;" href="javascript:void(0);" onclick="deletePicture('<%=p.getUuid()%>')">
+																					<img style="margin-right: 5px;" onclick="" alt="删除" src="ui/images/trash.gif" border="0" align="middle"/>
 																				</a>
 																			</td>
 																		</tr>
