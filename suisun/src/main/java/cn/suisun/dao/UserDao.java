@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.suisun.beans.User;
 import cn.suisun.utils.jdbc.BaseDao;
+import cn.suisun.vos.AlbumUpdateVO;
 
 
 /**
@@ -36,4 +37,10 @@ public interface UserDao extends BaseDao<User>{
     
     // 获取所有企业名称
     public List<String> getAllEnterprise() ;
+    
+    // 获取画册审批信息
+    public List<AlbumUpdateVO> getAlbumUpdateInfo(int audit,String albumName) ;
+    
+    // 修改审核状态
+    public void changeStatus(String uuid,int audit) ;
 }
