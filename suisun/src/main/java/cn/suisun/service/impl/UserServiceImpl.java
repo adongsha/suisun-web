@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import cn.suisun.beans.User;
 import cn.suisun.dao.UserDao;
 import cn.suisun.service.UserService;
+import cn.suisun.vos.AlbumUpdateVO;
 
 @Service("UserService")
 public class UserServiceImpl implements UserService {
@@ -67,5 +68,15 @@ public class UserServiceImpl implements UserService {
 	// 获取所有企业名称
     public List<String> getAllEnterprise(){
     	return this.userDao.getAllEnterprise() ;
+    }
+    
+    // 获取画册审批信息
+    public List<AlbumUpdateVO> getAlbumUpdateInfo(int audit,String albumName) {
+    	return this.userDao.getAlbumUpdateInfo(audit, albumName) ;
+    }
+    
+    // 修改审核状态
+    public void changeStatus(String uuid,int audit) {
+    	this.userDao.changeStatus(uuid, audit) ;
     }
 }
