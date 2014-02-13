@@ -30,6 +30,7 @@ import cn.suisun.utils.BaseAction;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.MD5Util;
 import cn.suisun.utils.PropertiesUtils;
+import cn.suisun.vos.AlbumUpdateVO;
 import cn.suisun.vos.UserVo;
 
 @Controller
@@ -77,6 +78,7 @@ public class AdminAction extends BaseAction {
 				Integer.parseInt(currentPage), pageSize, power, search);
 		int pageAll = (int) Math.ceil((double) userService.getAountUser(power,
 				search) / pageSize);
+		
 		map.put("pageAll", pageAll);
 		map.put("currentPage", currentPage);
 		map.put("pageSize", pageSize);
