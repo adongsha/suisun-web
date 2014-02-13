@@ -1,8 +1,6 @@
 package cn.suisun.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,11 +8,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +24,7 @@ import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.BaseAction;
+import cn.suisun.vos.AlbumUpdateVO;
 
 /**
  * @author pei
@@ -275,6 +271,7 @@ public class AlbumAction extends BaseAction{
 	public String addPublishInfo(@ModelAttribute("publish") AlbumUpdate publish,ModelMap map) {
 		publish.setUserId(super.getUserId()) ;
 		publish.setAudit(0) ;
+		publish.setCreateTime(new Date()) ;
 		// 保存发布信息
 		this.albumService.savePublish(publish) ;
 		// 保存信息
@@ -286,6 +283,31 @@ public class AlbumAction extends BaseAction{
 	public void deleltePicture(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {
 		// 删除画册目录信息
 		this.picService.deleteById(uuid) ;
+		
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 显示审批信息
+	@RequestMapping(params = { "method=showAuditInfo" }, method = {RequestMethod.GET,RequestMethod.POST})
+	public String showAuditInfo(@RequestParam("albumName") String albumName,ModelMap map) {
+		// 获取审批信息
+		List<AlbumUpdateVO> publishList = this.userService.getAlbumUpdateInfo(0, albumName) ;
+		
+		// 保存信息
+		map.put("albumName", albumName) ;
+		map.put("publishList", publishList) ;
+		return "/admin/album_audit" ;
+	}
+	
+	// 修改审批状态
+	@RequestMapping(params = { "method=changeStatus" }, method = {RequestMethod.POST})
+	public void changeStatus(HttpServletResponse response,@RequestParam("uuid") String uuid,@RequestParam("audit") int audit,ModelMap map) {
+		// 修改审批状态
+		this.userService.changeStatus(uuid, audit) ;
 		
 		try {
 			response.getWriter().write("") ;
