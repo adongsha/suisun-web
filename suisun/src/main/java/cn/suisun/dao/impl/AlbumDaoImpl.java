@@ -73,9 +73,13 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
 			int pageSize) {
 		StringBuffer hql = new StringBuffer(
-				"from Album a left User u join a.userId = u.uuid");
-		hql.append("where a.albumName = '").append(keyword)
-				.append("' or u.enterpriseName='").append(keyword).append("'");
+				"from Album a left join User u on a.userId = u.uuid ");
+		hql.append("where a.albumName like '%").append(keyword)
+				.append("%' or u.enterpriseName like '%").append(keyword).append("%'");
+		//SELECT * FROM suisun.album a left join suisun.user u on a.userId = u.uuid 
+		//where a.albumName like "%d%" or u.enterpriseName like "%0%";
+		StringBuffer hql1 =  new StringBuffer("FROM Album a left join User u on a.userId = u.uuid ");
+		hql1.append("");
 		return getPage(hql.toString(), currentPage, pageSize);
 	}
 

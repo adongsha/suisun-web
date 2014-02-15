@@ -87,8 +87,10 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
 	}
 
 	@Override
-	public User getUserByAlbumId(String albumId) {
-		return null;
+	public User getUserByAlbumId(String userId) {
+		String hql = "from User where uuid=?";
+		List<User> list = getHibernateTemplate().find(hql, new String[]{userId});
+		return list.size() > 0 ? list.get(0) : null; 
 	}
 	
 	// 获取所有企业名称
