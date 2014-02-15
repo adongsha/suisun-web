@@ -1,5 +1,6 @@
 package cn.suisun.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,6 +25,11 @@ public class RecommendServiceImpl implements RecommendService{
 	@Override
 	public int getRecommendPageAmount() {
 		return recommendDao.getRecommendPageAmount();
+	}
+
+	@Override
+	public Serializable save(Recommend recommend) {
+		return recommendDao.save(recommend);
 	}
 
 	
