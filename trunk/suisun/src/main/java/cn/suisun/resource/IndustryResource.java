@@ -29,12 +29,8 @@ import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.JsonUtil;
 import cn.suisun.utils.PropertiesBean;
 @Component
-@Path("/m/industry/")
+@Path("/industry/")
 public class IndustryResource {
-
-	
-	public IndustryResource() {
-	}
 
 	@Resource
 	UserService userService;
@@ -70,11 +66,13 @@ public class IndustryResource {
 		return result.toString();
 	}
 
+	
+	//有问题：行业在USER表
 	@GET
-	@Path("list")
+	@Path("industryList")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String list(@QueryParam("currentPage") String currentPage,
-			@QueryParam("pageNum") String pageNum,
+	public String industryList(@QueryParam("currentPage") String currentPage,
+			@QueryParam("pageSize") String pageNum,
 			@QueryParam("industryId") String industryId) {
 		if (StringUtils.isEmpty(currentPage) || StringUtils.isEmpty(pageNum)
 				|| StringUtils.isEmpty(industryId)) {

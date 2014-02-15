@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -31,7 +30,6 @@ import cn.suisun.service.UserService;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.JsonUtil;
 import cn.suisun.utils.PropertiesBean;
-import cn.suisun.vos.SampleVo;
 
 @Component
 @Path("/album/")
@@ -59,18 +57,6 @@ public class AlbumResource {
 	@Resource
 	PropertiesBean propertiesBean;
 	
-	
-	@GET
-	@Path("getSample/{sampleId}")
-    @Produces(MediaType.APPLICATION_JSON)
-	public SampleVo getSample(@PathParam("sampleId")String sampleId) {
-		System.out.println("--->sampleDao:");
-		System.out.println("-------------------->"+sampleId);
-		System.out.println("sampleService-->");
-
-		return new SampleVo("1","wanghj");
-	}
-
 	/**
 	 * 根据画册ID获取单个画册的所有信息接口。
 	 * 
@@ -102,7 +88,7 @@ public class AlbumResource {
 			JSONArray photoList = new JSONArray();
 			for (AlbumPic pic : aPicList) {
 				JSONObject jsonPic = JSONObject.fromObject(pic);
-				jsonPic.put("picUrl", picUrl.append(pic.getPicUrl()));
+				jsonPic.put("picUrl", picUrl.append(pic.getPicUrl()).toString());
 				photoList.add(jsonPic);
 			}
 			adSub.put("photoList", photoList);
@@ -152,7 +138,7 @@ public class AlbumResource {
 			JSONArray photoList = new JSONArray();
 			for (AlbumPic pic : aPicList) {
 				JSONObject jsonPic = JSONObject.fromObject(pic);
-				jsonPic.put("picUrl", picUrl.append(pic.getPicUrl()));
+				jsonPic.put("picUrl", picUrl.append(pic.getPicUrl()).toString());
 				photoList.add(jsonPic);
 			}
 			adSub.put("photoList", photoList);
@@ -182,7 +168,7 @@ public class AlbumResource {
 	@Path("recommendation")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String recommendation(@QueryParam("currentPage") String currentPage,
-			@QueryParam("pageSize") String pageSize) {
+			@QueryParam("pageNum") String pageSize) {
 
 		if (StringUtils.isEmpty(pageSize) || StringUtils.isEmpty(currentPage)) {
 			return JsonUtil.msg(-1);
@@ -221,7 +207,7 @@ public class AlbumResource {
 				directoryList.add(adJson);
 			}
 			alJson.put("directoryList", directoryList);
-			User user = userService.getUserByAlbumId(r.getAlbumId());
+			User user = userService.getUserByAlbumId(album.getUserId());
 			user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
 			JSONObject userJson = JSONObject.fromObject(user);
 			Industry industry = industryService.getIndustryById(user
