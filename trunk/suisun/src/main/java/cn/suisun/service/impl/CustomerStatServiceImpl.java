@@ -1,5 +1,6 @@
 package cn.suisun.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -38,6 +39,12 @@ public class CustomerStatServiceImpl implements CustomerStatService{
 	public int getCustomerStatAmountById(String id, String albumType,
 			String album, int orderBy) {
 		return customerStatDao.getCustomerStatByIdAmount(id, albumType, album, orderBy);
+	}
+
+
+	@Override
+	public Serializable save(CustomerStat customerStat) {
+		return customerStatDao.save(customerStat);
 	}
 
 	

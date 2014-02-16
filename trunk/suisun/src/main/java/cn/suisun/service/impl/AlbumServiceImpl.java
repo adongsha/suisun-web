@@ -59,7 +59,7 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
+	public List getAlbumByKeyword(String keyword, int currentPage,
 			int pageSize) {
 		return albumDao.getAlbumByKeyword(keyword, currentPage, pageSize);
 	}

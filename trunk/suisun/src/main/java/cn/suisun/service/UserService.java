@@ -26,6 +26,9 @@ public interface UserService {
 	
 	public User getUserByAlbumId(String albumId);
 	
+	public List<User> getUserByIndustryId(String industryId,int currentPage, int pageSize);
+	public int getUserByIndustryId(String industryId);
+	
 	// 获取所有企业名称
     public List<String> getAllEnterprise() ;
     

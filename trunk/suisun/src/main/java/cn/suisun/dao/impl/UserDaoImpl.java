@@ -148,4 +148,17 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     	// 修改审核信息
     	super.getHibernateTemplate().update(entity) ;
      }
+
+	@Override
+	public List<User> getUserByIndustryId(String industryId, int currentPage,
+			int pageSize) {
+		StringBuffer hql = new StringBuffer("from User where industryId ='").append(industryId).append("'");
+		return getPage(hql.toString(), currentPage, pageSize);
+	}
+    
+	@Override
+	public int getUserByIndustryId(String industryId) {
+		List<User> list = getHibernateTemplate().find("from User where industryId=?", new String[]{industryId});
+		return list.size();
+	}
 }

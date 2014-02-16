@@ -84,6 +84,15 @@ public class Album {
 	public void setAlbumAlias(String albumAlias) {
 		this.albumAlias = albumAlias;
 	}
+	@Override
+	public String toString() {
+		return "Album [uuid=" + uuid + ", userId=" + userId + ", albumName="
+				+ albumName + ", albumEnglish=" + albumEnglish
+				+ ", isAutoDownload=" + isAutoDownload + ", albumAlias="
+				+ albumAlias + ", albumCover=" + albumCover
+				+ ", albumPassword=" + albumPassword + ", createTime="
+				+ createTime + "]";
+	}
 	
 	
 }

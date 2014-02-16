@@ -180,26 +180,26 @@ public class AlbumResource {
 		List<Recommend> reList = recommendService.getRecommendPage(
 				Integer.parseInt(currentPage), pageSizeInt);
 		JSONArray albumList = new JSONArray();
-		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
+		String cover = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH);
+		String picUrl = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH);
+		String logoUrl = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH);
 		for (Recommend r : reList) {
 			Album album = albumService.getAlbumById(r.getAlbumId());
-			album.setAlbumCover(cover.append(album.getAlbumCover()).toString());
+			album.setAlbumCover(cover+album.getAlbumCover());
 			JSONObject alJson = JSONObject.fromObject(album);
 			JSONArray directoryList = new JSONArray();
 			List<AlbumDirectory> adList = albumDirectoryService
-					.getAlbumDirectoryByAlbumId(album.getUserId());
+					.getAlbumDirectoryByAlbumId(album.getUuid());
 			for (AlbumDirectory a : adList) {
 				JSONObject adJson = JSONObject.fromObject(a);
 				List<AlbumPic> picList = albumPicService
 						.getAlbumPicListByADId(a.getUuid());
 				JSONArray photoList = new JSONArray();
 				for (AlbumPic pic : picList) {
-					pic.setPicUrl(picUrl.append(pic.getPicUrl()).toString());
+					pic.setPicUrl(picUrl+pic.getPicUrl());
 					JSONObject picJson = JSONObject.fromObject(pic);
 					photoList.add(picJson);
 				}
@@ -208,7 +208,7 @@ public class AlbumResource {
 			}
 			alJson.put("directoryList", directoryList);
 			User user = userService.getUserByAlbumId(album.getUserId());
-			user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
+			user.setLogoUrl(logoUrl+user.getLogoUrl());
 			JSONObject userJson = JSONObject.fromObject(user);
 			Industry industry = industryService.getIndustryById(user
 					.getIndustryId());
@@ -238,10 +238,10 @@ public class AlbumResource {
 	@Path("getAlbumFormCompany")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAlbumFormCompany(@QueryParam("userId") String userId) {
-		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
+		String cover = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH);
+		String picUrl = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH);
 		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
 				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
         JSONObject result = new JSONObject();
@@ -255,11 +255,11 @@ public class AlbumResource {
         JSONArray albumList = new JSONArray();
 		List<Album> alList = albumService.getAlbumListByUserId(userId);
 		for (Album album : alList) {
-			album.setAlbumCover(cover.append(album.getAlbumCover()).toString());
+			album.setAlbumCover(cover+album.getAlbumCover());
 			JSONObject albumJson = JSONObject.fromObject(album);
 			
 			List<AlbumDirectory> adList = albumDirectoryService
-					.getAlbumDirectoryByAlbumId(album.getUserId());
+					.getAlbumDirectoryByAlbumId(album.getUuid());
 			JSONArray directoryList = new JSONArray();
 			for (AlbumDirectory a : adList) {
 				JSONObject adJson = JSONObject.fromObject(a);
@@ -267,7 +267,7 @@ public class AlbumResource {
 						.getAlbumPicListByADId(a.getUuid());
 				JSONArray photoList = new JSONArray();
 				for (AlbumPic pic : picList) {
-					pic.setPicUrl(picUrl.append(pic.getPicUrl()).toString());
+					pic.setPicUrl(picUrl+pic.getPicUrl());
 					JSONObject picJson = JSONObject.fromObject(pic);
 					photoList.add(picJson);
 				}
@@ -283,6 +283,14 @@ public class AlbumResource {
 		return result.toString();
 	}
 	
+	
+	/**
+	 * 搜索
+	 * @param keyword
+	 * @param currentPage
+	 * @param pageNum
+	 * @return
+	 */
 	@GET
 	@Path("getAlbumFormKey")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -292,21 +300,27 @@ public class AlbumResource {
 		if(StringUtils.isEmpty(currentPage) || StringUtils.isEmpty(pageNum)){
 			return JsonUtil.msg(-1);
 		}
-		StringBuffer cover = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH));
-		StringBuffer picUrl = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH));
-		StringBuffer logoUrl = new StringBuffer(propertiesBean.getProperty(
-				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH));
+		String cover = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH);
+		String picUrl = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH);
+		
 		JSONObject result = new JSONObject();
-		List<Album> alList = albumService.getAlbumByKeyword(keyword, Integer.parseInt(currentPage), Integer.parseInt(pageNum));
+		List alList = albumService.getAlbumByKeyword(keyword, Integer.parseInt(currentPage), Integer.parseInt(pageNum));
 		JSONArray data = new JSONArray();
-		for (Album album : alList) {
-			album.setAlbumCover(cover.append(album.getAlbumCover()).toString());
+		String logo = "";
+		String logoUrl = propertiesBean.getProperty(
+				GlobalConstants.CONFIG_NAME, GlobalConstants.LOGO_IMG_PATH);
+		for (int i=0; i< alList.size(); i++) {
+			Object[] obj = (Object[]) alList.get(i);
+			Album album = (Album) obj[0];
+			User user = (User) obj[1];
+			logo = user.getLogoUrl();
+			album.setAlbumCover(cover+album.getAlbumCover());
 			JSONObject albumJson = JSONObject.fromObject(album);
 			
 			List<AlbumDirectory> adList = albumDirectoryService
-					.getAlbumDirectoryByAlbumId(album.getUserId());
+					.getAlbumDirectoryByAlbumId(album.getUuid());
 			JSONArray directoryList = new JSONArray();
 			for (AlbumDirectory a : adList) {
 				JSONObject adJson = JSONObject.fromObject(a);
@@ -314,7 +328,7 @@ public class AlbumResource {
 						.getAlbumPicListByADId(a.getUuid());
 				JSONArray photoList = new JSONArray();
 				for (AlbumPic pic : picList) {
-					pic.setPicUrl(picUrl.append(pic.getPicUrl()).toString());
+					pic.setPicUrl(picUrl+pic.getPicUrl());
 					JSONObject picJson = JSONObject.fromObject(pic);
 					photoList.add(picJson);
 				}
@@ -322,11 +336,11 @@ public class AlbumResource {
 				directoryList.add(adJson);
 			}
 			albumJson.put("directoryList", directoryList);
-			User user = userService.getUserByAlbumId(album.getUuid());
-			user.setLogoUrl(logoUrl.append(user.getLogoUrl()).toString());
+			user.setLogoUrl(logoUrl+logo);
 			Industry industry = industryService.getIndustryById(user.getIndustryId());
 			JSONObject inJson = JSONObject.fromObject(industry);
 			JSONObject jsonUser = JSONObject.fromObject(user);
+			user.setLogoUrl(logo);
 			jsonUser.put("industry", inJson);
 			albumJson.put("user", jsonUser);
 			data.add(albumJson);

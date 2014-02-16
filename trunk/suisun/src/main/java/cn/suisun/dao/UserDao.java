@@ -43,4 +43,8 @@ public interface UserDao extends BaseDao<User>{
     
     // 修改审核状态
     public void changeStatus(String uuid,int audit) ;
+    
+    public List<User> getUserByIndustryId(String industryId, int currentPage, int pageSize);
+
+	public int getUserByIndustryId(String industryId);
 }
