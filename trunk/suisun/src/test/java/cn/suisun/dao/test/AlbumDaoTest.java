@@ -44,4 +44,15 @@ public class AlbumDaoTest {
              albumDao.save(album);
 		}
 	}
+	
+	@Test
+	public void testList(){
+		List list = albumDao.getAlbumByKeyword("0", 1, 10);
+		for(int i=0; i<list.size(); i++){
+			Object[] obj = (Object[]) list.get(i);
+			System.out.println(((Album)obj[0]).getAlbumAlias());
+			System.out.println(obj[1].toString());
+		}
+		
+	}
 }
