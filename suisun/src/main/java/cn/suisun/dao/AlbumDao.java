@@ -22,13 +22,14 @@ public interface AlbumDao {
 	public List<Album> getAlbumListByUserId(String userId);
 
 	public Album getAlbumById(String id);
+	
 
 	// 根据查询条件获取画册信息
 	public List<Album> getAlbumList(String albumName, String enterpriseName);
 
 	public Album getAlbumByAlias(String alias);
 
-	public List<Album> getAlbumByKeyword(String key, int currentPage,
+	public List getAlbumByKeyword(String key, int currentPage,
 			int pageSize);
 
 	public int getAlbumByKeywordAmount(String key);

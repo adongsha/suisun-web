@@ -30,7 +30,7 @@ public interface AlbumService {
 	
 	public Album getAlbumByAlias(String alias);
 	
-	public List<Album> getAlbumByKeyword(String keyword, int currentPage,
+	public List getAlbumByKeyword(String keyword, int currentPage,
 			int pageSize);
 	
 	public int getAlbumByKeywordAmount(String keyword);

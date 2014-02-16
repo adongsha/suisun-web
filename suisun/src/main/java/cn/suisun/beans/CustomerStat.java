@@ -25,12 +25,15 @@ public class CustomerStat {
 	private String uuid;
 	private String phoneType;
 	private String area;
-	private String albumLook;
+	private String albumLook;  //1:表示点击查看  2：表示下载
 	private String albumType;
+	private String albumId;
 	private Date downloadTime;
 	private Integer openNum;
 	private Date lastTimeLook;
 	private String userId;
+	private double longitude;
+	private double latitude;
 
 	public CustomerStat() {
 	}
@@ -125,14 +128,45 @@ public class CustomerStat {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	
+
+	public String getAlbumId() {
+		return albumId;
+	}
+
+	public void setAlbumId(String albumId) {
+		this.albumId = albumId;
+	}
+	
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
 	@Override
 	public String toString() {
 		return "CustomerStat [uuid=" + uuid + ", phoneType=" + phoneType
 				+ ", area=" + area + ", albumLook=" + albumLook
-				+ ", albumType=" + albumType + ", downloadTime=" + downloadTime
-				+ ", openNum=" + openNum + ", lastTimeLook=" + lastTimeLook
-				+ ", userId=" + userId + "]";
+				+ ", albumType=" + albumType + ", albumId=" + albumId
+				+ ", downloadTime=" + downloadTime + ", openNum=" + openNum
+				+ ", lastTimeLook=" + lastTimeLook + ", userId=" + userId
+				+ ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
+
+
+
 
 }

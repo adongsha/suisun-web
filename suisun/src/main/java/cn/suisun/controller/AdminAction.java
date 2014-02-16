@@ -30,7 +30,6 @@ import cn.suisun.utils.BaseAction;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.MD5Util;
 import cn.suisun.utils.PropertiesUtils;
-import cn.suisun.vos.AlbumUpdateVO;
 import cn.suisun.vos.UserVo;
 
 @Controller
@@ -300,10 +299,6 @@ public class AdminAction extends BaseAction {
 		}
 	}
 	
-	@RequestMapping(params={"method=forwardRecommend"}, method=RequestMethod.GET)
-	public String forwardRecommend(ModelMap map){
-		
-		return "admin/recommend";
-	}
+
 
 }

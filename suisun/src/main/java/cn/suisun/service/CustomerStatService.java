@@ -1,5 +1,6 @@
 package cn.suisun.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.suisun.beans.CustomerStat;
@@ -15,4 +16,6 @@ public interface CustomerStatService {
 			int pageSize,String id, String albumType, String album, int orderBy);
 	
 	public int getCustomerStatAmountById(String id, String albumType, String album, int orderBy);
+	
+	public Serializable save(CustomerStat customerStat);
 }

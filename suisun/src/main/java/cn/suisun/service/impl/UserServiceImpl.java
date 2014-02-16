@@ -79,4 +79,17 @@ public class UserServiceImpl implements UserService {
     public void changeStatus(String uuid,int audit) {
     	this.userDao.changeStatus(uuid, audit) ;
     }
+
+	@Override
+	public List<User> getUserByIndustryId(String industryId, int currentPage,
+			int pageSize) {
+		return userDao.getUserByIndustryId(industryId, currentPage, pageSize);
+	}
+
+	@Override
+	public int getUserByIndustryId(String industryId) {
+		return userDao.getUserByIndustryId(industryId);
+	}
+    
+    
 }

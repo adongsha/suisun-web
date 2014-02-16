@@ -12,4 +12,8 @@ public interface RecommendDao {
 	public int getRecommendPageAmount();
 	
 	public Serializable save(Recommend recommend);
+	
+	public List<Recommend> getRecommendList();
+	
+	public void delete();
 }
