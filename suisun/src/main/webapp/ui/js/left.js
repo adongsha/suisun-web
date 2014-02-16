@@ -28,7 +28,7 @@ jQuery(function(){
 	});
 	
 	jQuery(".ico7").click(function(){
-		window.location.href = "u/adminAction.htm?method=forwardRecommend";
+		window.location.href = "u/recommendAction.htm?method=forwardRecommend";
 	});
 });
 
