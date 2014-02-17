@@ -3,7 +3,9 @@ package cn.suisun.resource;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -354,5 +356,19 @@ public class AlbumResource {
 		return result.toString();
 	}
 
+	@POST
+	@Path("getFeeds")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getFeeds(@FormParam("data")String data){
+		JSONArray ja = JSONArray.fromObject(data);
+		for(int i=0; i< ja.size(); i++){
+			JSONObject json = ja.getJSONObject(i);
+			String albumId = json.getString("albumId");
+			long time = json.getLong("time");
+			Album album = albumService.getAlbumById(albumId);
+			
+		}
+		return "";
+	}
 	
 }

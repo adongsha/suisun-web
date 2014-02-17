@@ -18,7 +18,7 @@ public class RecommendDaoImpl extends BaseDaoImpl<Recommend> implements Recommen
 	@Override
 	public List<Recommend> getRecommendPage(int currentPage, int pageSize) {
 		
-		return getPage("from Recommend where 1=1 order by sort", currentPage, pageSize);
+		return getPage("from Recommend where 1=1 order by sort asc", currentPage, pageSize);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class RecommendDaoImpl extends BaseDaoImpl<Recommend> implements Recommen
 
 	@Override
 	public List<Recommend> getRecommendList() {
-		return getHibernateTemplate().find("from Recommend order by sort");
+		return getHibernateTemplate().find("from Recommend order by sort asc");
 	}
 
 	@Override

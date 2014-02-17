@@ -32,26 +32,34 @@ public class CustomerStat {
 	private Integer openNum;
 	private Date lastTimeLook;
 	private String userId;
-	private double longitude;
-	private double latitude;
+	private Double longitude;
+	private Double latitude;
 
 	public CustomerStat() {
 	}
 
+
+
 	public CustomerStat(String uuid, String phoneType, String area,
-			String albumLook, String albumType, Date downloadTime,
-			Integer openNum, Date lastTimeLook, String userId) {
+			String albumLook, String albumType, String albumId,
+			Date downloadTime, Integer openNum, Date lastTimeLook,
+			String userId, Double longitude, Double latitude) {
 		super();
 		this.uuid = uuid;
 		this.phoneType = phoneType;
 		this.area = area;
 		this.albumLook = albumLook;
 		this.albumType = albumType;
+		this.albumId = albumId;
 		this.downloadTime = downloadTime;
 		this.openNum = openNum;
 		this.lastTimeLook = lastTimeLook;
 		this.userId = userId;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
+
+
 
 	@Id
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
@@ -140,19 +148,19 @@ public class CustomerStat {
 	}
 	
 
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -165,6 +173,8 @@ public class CustomerStat {
 				+ ", lastTimeLook=" + lastTimeLook + ", userId=" + userId
 				+ ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
+
+
 
 
 

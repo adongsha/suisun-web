@@ -13,7 +13,9 @@ public interface RecommendService {
 	
 	public Serializable save(Recommend recommend);
 	
-	public List<RecommendVo> getRecommendList();
+	public List<RecommendVo> getRecommendVoList();
+	
+	public List<Recommend> getRecommendList();
 	
 	public boolean addRecommend(String rid);
 }

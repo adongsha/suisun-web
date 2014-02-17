@@ -41,7 +41,7 @@ public class RecommendServiceImpl implements RecommendService{
 	}
 
 	@Override
-	public List<RecommendVo> getRecommendList() {
+	public List<RecommendVo> getRecommendVoList() {
 		List<Recommend> list = recommendDao.getRecommendList();
 		List<RecommendVo> listVo = new ArrayList<RecommendVo>();
 		for(Recommend r : list){
@@ -54,6 +54,12 @@ public class RecommendServiceImpl implements RecommendService{
 		    listVo.add(rVo);
 		}
 		return listVo;
+	}
+
+	
+	@Override
+	public List<Recommend> getRecommendList() {
+		return recommendDao.getRecommendList();
 	}
 
 	@Override
