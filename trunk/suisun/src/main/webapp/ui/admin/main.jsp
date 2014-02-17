@@ -52,8 +52,8 @@
 					<table id="rounded-corner">
 						<thead>
 							<tr>
-								<th></th>
-								<th>用户名</th>
+<!-- 								<th></th>
+ -->								<th>用户名</th>
 								<th>企业名称</th>
 								<th>地址</th>
 								<th>负责人</th>
@@ -66,10 +66,10 @@
 						<tfoot>
 							<tr>
 								<td colspan="12">
-									<div class="form_sub_buttons">
+<!-- 									<div class="form_sub_buttons">
 										<a href="#" class="button green" style="float: left;">全选</a> <a
 											href="#" class="button red" style="float: left;">删除选中的</a>
-									</div>
+									</div> -->
 
 
 									<div style="width: 400px;margin-top: 10px;float: right;">
@@ -94,7 +94,7 @@
 									<c:if test="${status.count%2 == 0}">
 									class="odd"
 								</c:if>>
-									<td><input type="checkbox" name="" /></td>
+									<!-- <td><input type="checkbox" name="" /></td> -->
 									<td>${u.account}</td>
 									<td>${u.enterpriseName}</td>
 									<td>${u.address}</td>

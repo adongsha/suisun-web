@@ -92,7 +92,7 @@ $.widget("ui.multiselect", {
 		dividerLocation: 0.6,
 		// callbacks
 		dataParser: defaultDataParser,
-		nodeComparator: defaultNodeComparator,
+		/*nodeComparator: defaultNodeComparator,*/
 		nodeInserted: null,
 		hidden: false
 	},
