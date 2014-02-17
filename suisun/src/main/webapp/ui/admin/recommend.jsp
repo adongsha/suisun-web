@@ -65,14 +65,14 @@
 									name="countries[]" style="height:70%; width: 50%">
 
 									<c:forEach items="${aList}" var="a">
-										<option value="${a.uuid}"
-											<c:forEach items="${rList}" var="r">
-									     <c:if test="${a.uuid==r.albumId}">
-									          selected="selected"
-									     </c:if>
-									    </c:forEach>>${a.albumName}</option>
+										<option value="${a.uuid}">${a.albumName}</option>
 									</c:forEach>
-
+									
+                                    <c:forEach items="${rList}" var="b">
+                                        <option value="${b.uuid}"
+									          selected="selected"
+									     >${b.albumName}</option>
+                                    </c:forEach>
 								</select>
 							</dd>
 						</dl>
