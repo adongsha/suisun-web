@@ -21,5 +21,12 @@ public class UploadAction {
 		String path = UploadHelper.uploadFile(request) ;
 		response.getWriter().write(path) ;
 	}
-
+	
+	// APP上传
+	@RequestMapping(params = "method=uploadApp", method = RequestMethod.POST)
+	public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// APP上传
+		String path = UploadHelper.uploadApp(request) ;
+		response.getWriter().write(path) ;
+	}
 }
