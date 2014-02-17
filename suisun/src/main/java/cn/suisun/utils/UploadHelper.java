@@ -66,5 +66,136 @@ public class UploadHelper {
 		System.out.println("图片上传地址 : " + imagePath);
 		return imagePath;
 	}
+	
+	/** 文件上传 **/
+	public static String uploadAlbum(HttpServletRequest request) throws Exception{
+		String responseStr = "";
+		String imagePath = "" ;
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		MultipartFile file11 = multipartRequest.getFile("Filedata");
+		String ctxPath = request.getRealPath("") + "/ui/upload/album-cover/";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String ymd = sdf.format(new Date());
+		ctxPath += ymd + "/";
+		imagePath = "ui/upload/album-cover/" + ymd  + "/";
+		// 创建文件夹
+		File file = new File(ctxPath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String fileName = null;
+		String path = null;
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			// 上传文件名
+			MultipartFile mf = entity.getValue();
+			fileName = mf.getOriginalFilename();
+			String strEnc = MD5.getDigestedString(fileName);// 加密字符串,返回String的密文
+			String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");// 返回一个随机UUID。
+			String suffix = fileName.indexOf(".") != -1 ? fileName.substring(
+					fileName.lastIndexOf("."), fileName.length()) : null;
+			String newFileName = strEnc + "-" + uuid
+					+ (suffix != null ? suffix : "");// 构成新文件名。
+			File uploadFile = new File(ctxPath + newFileName);
+			imagePath += newFileName ;
+			try {
+				FileCopyUtils.copy(mf.getBytes(), uploadFile);
+				path = ctxPath + newFileName;
+				responseStr = "上传成功";
+			} catch (IOException e) {
+				responseStr = "上传失败";
+				e.printStackTrace();
+			}
+		}
+		System.out.println("图片上传地址 : " + imagePath);
+		return imagePath;
+	}
+	
+	/** 文件上传 **/
+	public static String uploadAlbumPic(HttpServletRequest request) throws Exception{
+		String responseStr = "";
+		String imagePath = "" ;
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		MultipartFile file11 = multipartRequest.getFile("Filedata");
+		String ctxPath = request.getRealPath("") + "/ui/upload/album-pic/";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String ymd = sdf.format(new Date());
+		ctxPath += ymd + "/";
+		imagePath = "ui/upload/album-pic/" + ymd  + "/";
+		// 创建文件夹
+		File file = new File(ctxPath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String fileName = null;
+		String path = null;
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			// 上传文件名
+			MultipartFile mf = entity.getValue();
+			fileName = mf.getOriginalFilename();
+			String strEnc = MD5.getDigestedString(fileName);// 加密字符串,返回String的密文
+			String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");// 返回一个随机UUID。
+			String suffix = fileName.indexOf(".") != -1 ? fileName.substring(
+					fileName.lastIndexOf("."), fileName.length()) : null;
+			String newFileName = strEnc + "-" + uuid
+					+ (suffix != null ? suffix : "");// 构成新文件名。
+			File uploadFile = new File(ctxPath + newFileName);
+			imagePath += newFileName ;
+			try {
+				FileCopyUtils.copy(mf.getBytes(), uploadFile);
+				path = ctxPath + newFileName;
+				responseStr = "上传成功";
+			} catch (IOException e) {
+				responseStr = "上传失败";
+				e.printStackTrace();
+			}
+		}
+		System.out.println("图片上传地址 : " + imagePath);
+		return imagePath;
+	}
 
+	/** 文件上传 **/
+	public static String uploadApp(HttpServletRequest request) throws Exception{
+		String responseStr = "";
+		String imagePath = "" ;
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		MultipartFile file11 = multipartRequest.getFile("Filedata");
+		String ctxPath = request.getRealPath("") + "/ui/upload/app/";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String ymd = sdf.format(new Date());
+		ctxPath += ymd + "/";
+		imagePath = "ui/upload/app/" + ymd  + "/";
+		// 创建文件夹
+		File file = new File(ctxPath);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String fileName = null;
+		String path = null;
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			// 上传文件名
+			MultipartFile mf = entity.getValue();
+			fileName = mf.getOriginalFilename();
+			String strEnc = MD5.getDigestedString(fileName);// 加密字符串,返回String的密文
+			String uuid = UUID.randomUUID().toString().replaceAll("\\-", "");// 返回一个随机UUID。
+			String suffix = fileName.indexOf(".") != -1 ? fileName.substring(
+					fileName.lastIndexOf("."), fileName.length()) : null;
+			String newFileName = strEnc + "-" + uuid
+					+ (suffix != null ? suffix : "");// 构成新文件名。
+			File uploadFile = new File(ctxPath + newFileName);
+			imagePath += newFileName ;
+			try {
+				FileCopyUtils.copy(mf.getBytes(), uploadFile);
+				path = ctxPath + newFileName;
+				responseStr = "上传成功";
+			} catch (IOException e) {
+				responseStr = "上传失败";
+				e.printStackTrace();
+			}
+		}
+		System.out.println("APP上传地址 : " + imagePath);
+		return imagePath;
+	}
 }
