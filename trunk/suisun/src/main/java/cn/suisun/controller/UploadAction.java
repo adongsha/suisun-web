@@ -22,6 +22,22 @@ public class UploadAction {
 		response.getWriter().write(path) ;
 	}
 	
+	// 画册封面上传
+	@RequestMapping(params = "method=uploadAlbum", method = RequestMethod.POST)
+	public void uploadAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 照片上传
+		String path = UploadHelper.uploadAlbum(request) ;
+		response.getWriter().write(path) ;
+	}
+	
+	// 画册图片上传
+	@RequestMapping(params = "method=uploadAlbumPic", method = RequestMethod.POST)
+	public void uploadAlbumPic(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 照片上传
+		String path = UploadHelper.uploadAlbumPic(request) ;
+		response.getWriter().write(path) ;
+	}
+	
 	// APP上传
 	@RequestMapping(params = "method=uploadApp", method = RequestMethod.POST)
 	public void uploadApp(HttpServletRequest request, HttpServletResponse response) throws Exception {
