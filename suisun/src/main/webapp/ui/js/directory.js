@@ -29,7 +29,7 @@ function uploadify(){
         'width'         : 90,    
         'buttonText'    : '选择上传照片',  
         'swf'           : getRootPath() + '/ui/js/uploadify/uploadify.swf?ver=' + Math.random(),  
-        'uploader'      : getRootPath() + '/u/uploadAction.htm?method=upload',  
+        'uploader'      : getRootPath() + '/u/uploadAction.htm?method=uploadAlbumPic',  
         'auto'          : true,
         'fileSizeLimit' : '153072KB', 
         'fileTypeExts'  : '*.jpg; *.png', 
