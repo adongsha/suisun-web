@@ -113,8 +113,10 @@
 						</tbody>
 					</table>
 					
-					<iframe src="<%=basePath%>u/albumsAction.htm?method=showAuditInfo&albumName=" width="100%" height="500" style="margin-top: 20px;" frameborder=”no” border=”0″></iframe>
-					
+					<!-- 审批管理 -->
+					<iframe src="<%=basePath%>u/albumsAction.htm?method=showAuditInfo&albumName=" width="100%" height="300" style="margin-top: 20px;" frameborder=”no” border=”0″></iframe>
+					<!-- APP版本管理 -->
+					<iframe src="<%=basePath%>u/appAction.htm?method=forwardApp" width="100%" height="300" style="margin-top: 20px;" frameborder=”no” border=”0″></iframe>
 				</div>
 
 
