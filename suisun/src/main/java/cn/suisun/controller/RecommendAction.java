@@ -1,5 +1,6 @@
 package cn.suisun.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.suisun.beans.Album;
+import cn.suisun.beans.Recommend;
 import cn.suisun.service.AlbumService;
 import cn.suisun.service.RecommendService;
-import cn.suisun.vos.RecommendVo;
 
 @Controller
 @RequestMapping({ "/u/recommendAction.htm" })
@@ -29,9 +30,21 @@ public class RecommendAction {
 	@RequestMapping(params={"method=forwardRecommend"}, method=RequestMethod.GET)
 	public String forwardRecommend(ModelMap map){
 		List<Album> aList = albumService.getAlbumList();
-		List<RecommendVo> list = recommendService.getRecommendList();
+		List<Recommend> list = recommendService.getRecommendList();
+		
+		List<Album> select = new ArrayList<Album>();
+		
+			for(int i=0; i<list.size(); i++){
+				Recommend r = list.get(i);
+				for(Album a : aList){
+				if(a.getUuid().equals(r.getAlbumId())){
+					select.add(a);
+					list.remove(a);
+				}
+			}			
+		}
 		map.put("aList", aList);
-		map.put("rList", list);
+		map.put("rList", select);
 		return "admin/recommend";
 	}
 	

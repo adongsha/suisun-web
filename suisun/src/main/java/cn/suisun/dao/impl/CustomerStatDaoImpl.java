@@ -43,6 +43,7 @@ public class CustomerStatDaoImpl extends BaseDaoImpl<CustomerStat> implements Cu
 		default:
 			break;
 		}
+		System.out.println("----------->sql:"+hql.toString());
 		return getPage(hql.toString(), currentPage, pageSize);
 	}
 
