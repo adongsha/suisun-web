@@ -29,6 +29,7 @@
 		</script>
 	</head>
 <body>
+	<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 	<input id="albumId" type="hidden" value="${albumId}"/>
 	<div id="wrapper" style="background-color: #EBEBEB;">
 		<div id="content">

@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
 	</head>
 <body>
+	<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 	<div id="wrapper">
 		<div id="content">
 			<div class="c1">
