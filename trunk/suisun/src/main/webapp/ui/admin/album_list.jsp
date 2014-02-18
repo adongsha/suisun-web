@@ -17,6 +17,7 @@
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/main.css" />
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/table.css" />
 		<script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
 	</head>
 <body>

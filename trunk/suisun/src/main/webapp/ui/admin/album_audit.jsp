@@ -20,6 +20,10 @@
 <script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="ui/js/asyncbox/AsyncBox.v1.4.5.js" charset="UTF-8"></script>
 <script type="text/javascript">
+   $(function(){
+       	$(".active").removeClass("active");
+	$(".ico6").parent().addClass("active");
+   });
 	function changeStatus(uuid,audit){
 		$.post("u/albumsAction.htm?method=changeStatus", {
 			"uuid" : uuid,
