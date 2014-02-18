@@ -318,4 +318,13 @@ public class AlbumAction extends BaseAction{
 			e.printStackTrace();
 		}
 	}
+	
+	// 跳转二维码
+	@RequestMapping(params = { "method=forwardErWeiMa" }, method = RequestMethod.GET)
+	public String forwardErWeiMa(@RequestParam("albumId") String albumId,ModelMap map) {
+		Album album = albumService.getAlbumById(albumId);
+		System.out.println("alisa:"+album.getAlbumAlias());
+		map.put("alisa", album.getAlbumAlias());
+ 		return "/admin/album_erwm";
+	}
 }

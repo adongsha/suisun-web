@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class AdminAction extends BaseAction {
 
 	@Resource
 	IndustryService industryService;
+	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
 	@RequestMapping(params = { "method=admin" }, method = RequestMethod.GET)
 	public String forwardAdmin(ModelMap map) {
@@ -280,6 +283,7 @@ public class AdminAction extends BaseAction {
 	public String forwardUserMain(ModelMap map){
 		User user = getUser();
 		map.put("user",user);
+		map.put("lastTime", sdf.format(user.getLastTime()));
 		Industry industry = industryService.getIndustryById(user.getIndustryId());
 		if(!StringUtils.isEmpty(industry)){
 			map.put("industryName", industry.getIndustryName());
