@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('albumName').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="albumForm" action="u/albumsAction.htm?method=updateAlbum" method="post" commandName="album">
 			<form:hidden path="uuid"/>
 			<form:hidden path="createTime"/>

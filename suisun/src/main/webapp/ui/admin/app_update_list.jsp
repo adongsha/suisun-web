@@ -32,19 +32,23 @@
 	}
 	
 </script>
+
 </head>
 <body>
-	<div >
-		<div id="content" style="margin: 0;padding: 0;">
-			<div class="c1" style="margin: 0;padding: 0;">
-				<div id="right_content" style="margin: 0;padding: 0;">
+	<div id="wrapper">
+		<div id="content">
+			<div class="c1">
+
+				<%@include file="common/head.jsp"%>
+
+				<div id="right_content">
 					<h2>
 						<label>系统版本管理</label> <label
 							style="margin-left: 100px; float: right;"> 
 							<input type="button" value="新建" onclick="forwardAddApp()" style="margin-right: 10px;"/>
 						</label>
 					</h2>
-					<table id="rounded-corner" style="table-layout:fixed;">
+					<table id="rounded-corner">
 						<thead>
 							<tr>
 								<th align="center" width="100">ID</th>
@@ -56,9 +60,6 @@
 								<th width="50" align="center">操作</th>
 							</tr>
 						</thead>
-						<tfoot>
-							
-						</tfoot>
 						<tbody>
 							<c:forEach items="${apps}" var="p" varStatus="status">
 								<tr
@@ -86,12 +87,12 @@
 									</td>
 								</tr>
 							</c:forEach>
-
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+		<%@include file="common/left.jsp"%>
 	</div>
 </body>
 </html>
