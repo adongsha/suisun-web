@@ -136,6 +136,12 @@ function forwardPublishInfo(){
 	window.open(uri,'画册发布更新','height=480,width=420,top=150,left=510,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
 }
 
+// 跳转二维码
+function forwardErWeiMa(){
+	var uri = "u/albumsAction.htm?method=forwardErWeiMa&albumId=" + $("#albumId").val() ;
+	window.open(uri,'画册二维码','height=480,width=420,top=150,left=510,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
+}
+
 // 删除图片
 function deletePicture(uuid){
 	if(confirm("是否删除图片?")){
