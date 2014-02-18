@@ -19,6 +19,7 @@
 <link href="ui/js/asyncbox/skins/ZCMS/asyncbox.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="ui/js/asyncbox/AsyncBox.v1.4.5.js" charset="UTF-8"></script>
+<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 <script type="text/javascript" src="ui/js/app.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	function changeStatus(uuid,audit){

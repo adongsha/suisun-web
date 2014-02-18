@@ -20,6 +20,7 @@
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/main.css" />
 		<link media="all" rel="stylesheet" type="text/css" href="ui/css/table.css" />
 		<script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 		<script type="text/javascript" src="ui/js/asyncbox/AsyncBox.v1.4.5.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="ui/js/directory.js" charset="UTF-8"></script>
 		<script type="text/javascript">
@@ -43,9 +44,9 @@
 							画册目录
 						</label>
 						<label style="text-align: right;margin-right: 10px;">
-							<input type="button" value="查看画册二维码" class="btn"/>
+							<input type="button" value="查看画册二维码" class="btn" onclick="forwardErWeiMa()"/>
 							<input type="button" value="上传图片" onclick="forwardAddPicture('${directoryId}')" class="btn"/>
-							<input type="button" value="编辑名片" id="editCard" class="btn"/>
+							<!-- <input type="button" value="编辑名片" id="editCard" class="btn"/> -->
 							<c:if test="${sessionScope.user.power == 0 || sessionScope.user.power == 1}">
 								<input type="button" value="发布更新" class="btn" onclick="forwardPublishInfo()"/>
 							</c:if>
