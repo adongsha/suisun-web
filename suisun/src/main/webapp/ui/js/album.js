@@ -39,16 +39,20 @@ $(function() {
 
 // 照片上传
 function uploadify(){
+	var session_id = $("#sessionid").val() ;
 	// 上传配置
     $("#uploadifyFile").uploadify({  
         'height'        : 20,   
         'width'         : 90,    
         'buttonText'    : '选择上传照片',  
         'swf'           : getRootPath() + '/ui/js/uploadify/uploadify.swf?ver=' + Math.random(),  
-        'uploader'      : getRootPath() + '/u/uploadAction.htm?method=uploadAlbum',  
+        'uploader'      : getRootPath() + '/u/uploadAction.htm;jsessionid=' + session_id,  
         'auto'          : true,
         'fileSizeLimit' : '153072KB', 
         'fileTypeExts'  : '*.jpg; *.png', 
+        'formData' :{
+        	"method" : "uploadAlbum"
+        },
         'onUploadStart' : function(file) {
         },  
         'onUploadSuccess':function(file, data, response){
