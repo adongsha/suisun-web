@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('directoryName').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="directoryForm" action="u/albumsAction.htm?method=addDirectory" method="post" commandName="directory">
 			<form:hidden path="albumId"/>
 			<table style="width: 100%;height: auto;border: 0px;">

@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('directoryName').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="directoryForm" action="u/albumsAction.htm?method=updateDirectory" method="post" commandName="directory">
 			<form:hidden path="albumId"/>
 			<form:hidden path="uuid"/>

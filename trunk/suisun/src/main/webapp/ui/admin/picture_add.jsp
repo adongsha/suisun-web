@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('picName').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="pictureForm" action="u/albumsAction.htm?method=addPicture" method="post" commandName="picture">
 			<form:hidden path="albumDirectoryId"/>
 			<table style="width: 100%;height: auto;border: 0px;">
