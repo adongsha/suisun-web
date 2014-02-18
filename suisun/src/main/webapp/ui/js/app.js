@@ -13,6 +13,8 @@ function getRootPath(){
 };
 
 $(function(){
+	$(".active").removeClass("active");
+	$(".ico8").parent().addClass("active");
 	// 照片上传
 	uploadify();
 }) ;
