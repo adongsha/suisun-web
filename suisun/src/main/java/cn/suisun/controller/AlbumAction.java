@@ -1,6 +1,7 @@
 package cn.suisun.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -225,6 +226,7 @@ public class AlbumAction extends BaseAction{
 	public String addPicture(@ModelAttribute("picture") AlbumPic pic,ModelMap map) {
 		// 刚提交图片
 		pic.setAudit(0) ;
+		pic.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())) ;
 		this.picService.save(pic) ;
 		// 保存信息
 		map.put("flag", "success") ;
@@ -234,6 +236,7 @@ public class AlbumAction extends BaseAction{
 	// 修改图片信息
 	@RequestMapping(params = { "method=updatePicture" }, method = RequestMethod.POST)
 	public String updatePicture(@ModelAttribute("picture") AlbumPic pic,ModelMap map) {
+		pic.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())) ;
 		this.picService.update(pic) ;
 		// 保存信息
 		map.put("flag", "success") ;
