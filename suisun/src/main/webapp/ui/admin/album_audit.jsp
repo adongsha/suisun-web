@@ -34,19 +34,23 @@
 		window.location.href = "u/albumsAction.htm?method=showAuditInfo&albumName=" + $("#albumName").val() ;
 	}
 </script>
+
 </head>
 <body>
-	<div >
-		<div id="content" style="margin: 0;padding: 0;">
-			<div class="c1" style="margin: 0;padding: 0;">
-				<div id="right_content" style="margin: 0;padding: 0;">
+	<div id="wrapper">
+		<div id="content">
+			<div class="c1">
+
+				<%@include file="common/head.jsp"%>
+
+				<div id="right_content">
 					<h2>
 						<label>画册审批</label> <label
 							style="margin-left: 100px; float: right;"> <input
 							type="text" placeholder="画册名称" id="albumName"/> <a href="javascript:void(0);"
 							class="button greens" onclick="showAuditInfo()">搜索</a> </label>
 					</h2>
-					<table id="rounded-corner" style="table-layout:fixed;">
+					<table id="rounded-corner">
 						<thead>
 							<tr>
 								<th align="center" width="100">企业名称</th>
@@ -57,9 +61,6 @@
 								<th width="50" align="center">审批</th>
 							</tr>
 						</thead>
-						<tfoot>
-							
-						</tfoot>
 						<tbody>
 							<c:forEach items="${publishList}" var="p" varStatus="status">
 								<tr
@@ -82,12 +83,12 @@
 									</td>
 								</tr>
 							</c:forEach>
-
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
+		<%@include file="common/left.jsp"%>
 	</div>
 </body>
 </html>

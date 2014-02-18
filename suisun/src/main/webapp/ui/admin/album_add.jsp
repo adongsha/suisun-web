@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('albumName').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="albumForm" action="u/albumsAction.htm?method=addAlbum" method="post" commandName="album">
 			<table style="width: 100%;height: auto;border: 0px;">
 				<tr>
