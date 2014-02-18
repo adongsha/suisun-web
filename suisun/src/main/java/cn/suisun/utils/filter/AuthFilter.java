@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.util.StringUtils;
 
+import cn.suisun.beans.User;
 import cn.suisun.utils.GlobalConstants;
 
 
@@ -29,6 +30,7 @@ public class AuthFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
 		//String uri = request.getRequestURI();
+		request.getSession().setAttribute("ip", getIpAddr(request));
 		if(StringUtils.isEmpty(request.getSession().getAttribute(GlobalConstants.SESSION_USER))){
 			response.sendRedirect("/suisun");
 		} else {
@@ -38,6 +40,19 @@ public class AuthFilter implements Filter{
 		
 	}
 
+	protected String getIpAddr(HttpServletRequest request) {  
+	    String ip = request.getHeader("x-forwarded-for");  
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getHeader("Proxy-Client-IP");  
+	    }  
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getHeader("WL-Proxy-Client-IP");  
+	    }  
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+	        ip = request.getRemoteAddr();  
+	    }  
+	    return ip;  
+	}  
 	
 	public void init(FilterConfig arg0) throws ServletException {
 		
