@@ -49,6 +49,10 @@ public class LoginAction extends BaseAction{
 	
 	@RequestMapping(params={"method=outLogin"}, method=RequestMethod.GET)
 	public String outLogin(){
+		String ip = (String) getAttribute("ip", "");
+		User u = getUser();
+		u.setIp(ip);
+		userService.update(u);
 		setAttribute(GlobalConstants.SESSION_USER, "");
 		System.out.println("注销成功..");
 		return "redirect:loginAction.htm?method=forwardLogin";
