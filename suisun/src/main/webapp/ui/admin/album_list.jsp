@@ -87,7 +87,7 @@
 												<div style="background-color: white; width: 280;height: 240;text-align: center;">
 													<input type="hidden" id="uuid" value="<%=album.getUuid()%>"/>
 													<a href="javascript:void(0);" onclick="forwardDirectory('<%=album.getUuid()%>')">
-														<img alt="" src="<%=basePath%><%=album.getAlbumCover()%>" style="margin: 4px" width="250" height="200"/>
+														<img alt="" src="<%=album.getAlbumCover()%>" style="margin: 4px" width="250" height="200"/>
 													</a>
 													<table style="width: 100%;">
 														<tr>
