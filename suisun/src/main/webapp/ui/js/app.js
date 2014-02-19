@@ -21,19 +21,26 @@ $(function(){
 
 //照片上传
 function uploadify(){
+	var session_id = $("#sessionid").val() ;
 	// 上传配置
     $("#uploadifyFile").uploadify({  
         'height'        : 20,   
         'width'         : 90,    
         'buttonText'    : '选择上传文件',  
         'swf'           : getRootPath() + '/ui/js/uploadify/uploadify.swf?ver=' + Math.random(),  
-        'uploader'      : getRootPath() + '/u/uploadAction.htm?method=uploadApp',  
+        'uploader'      : getRootPath() + '/u/uploadAction.htm;jsessionid=' + session_id,  
         'auto'          : true,
+        'formData' :{
+        	"method" : "uploadApp"
+        },
         'onUploadStart' : function(file) {
         },  
         'onUploadSuccess':function(file, data, response){
         	// 设置地址
-        	$("#downloadUrl").val(data) ;
+        	var strs = data.split("/");
+        	var picName = strs[strs.length - 1] ;
+        	
+        	$("#downloadUrl").val(picName) ;
         	asyncbox.tips("文件上传成功");
         },  
         'onUploadComplete':function(file,swfuploadifyQueue){  
