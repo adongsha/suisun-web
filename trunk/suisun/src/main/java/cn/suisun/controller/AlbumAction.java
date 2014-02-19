@@ -25,6 +25,9 @@ import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
 import cn.suisun.service.UserService;
 import cn.suisun.utils.BaseAction;
+import cn.suisun.utils.GlobalConstants;
+import cn.suisun.utils.PropertiesBean;
+import cn.suisun.utils.PropertiesUtils;
 import cn.suisun.vos.AlbumUpdateVO;
 
 /**
@@ -50,6 +53,9 @@ public class AlbumAction extends BaseAction{
 	// 用户接口
 	@Resource
 	private UserService userService ;
+	
+	@Resource
+	PropertiesBean propertiesBean;
 
 	// 显示画册列表
 	@RequestMapping(params = { "method=showAlbums" }, method = {RequestMethod.GET,RequestMethod.POST})
@@ -62,6 +68,15 @@ public class AlbumAction extends BaseAction{
 			// 保存所有企业名称
 			map.put("enterprises", this.userService.getAllEnterprise()) ;
 		}
+		
+		if(albums != null && !albums.isEmpty()){
+			String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH) ;
+			for(Album album : albums){
+				album.setAlbumCover(albumUrl + album.getAlbumCover()) ;
+				System.out.println(album.getAlbumCover()) ;
+			}
+		}
+		
 		// 保存信息
 		map.put("albums", albums) ;
 		map.put("albumName", albumName) ;
@@ -80,6 +95,14 @@ public class AlbumAction extends BaseAction{
 			// 保存所有企业名称
 			map.put("enterprises", this.userService.getAllEnterprise()) ;
 		}
+		
+		if(albums != null && !albums.isEmpty()){
+			String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH) ;
+			for(Album album : albums){
+				album.setAlbumCover(albumUrl + album.getAlbumCover()) ;
+			}
+		}
+		
 		// 保存信息
 		map.put("albums", albums) ;
 		map.put("albumName", "") ;
@@ -121,9 +144,12 @@ public class AlbumAction extends BaseAction{
 	// 跳转至画册修改界面
 	@RequestMapping(params = { "method=forwardUpdateAlbum" }, method = RequestMethod.GET)
 	public String forwardUpdateAlbum(@RequestParam("uuid") String uuid,ModelMap map) {
-		System.out.println("************ update") ;
 		// 获取画册信息
-		map.put("album", this.albumService.getAlbumById(uuid)) ;
+		Album album = this.albumService.getAlbumById(uuid) ;
+		String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH) ;
+		album.setAlbumCover(albumUrl + album.getAlbumCover()) ;
+		// 保存信息
+		map.put("album", album) ;
 		return "admin/album_update";
 	}
 	
@@ -155,10 +181,18 @@ public class AlbumAction extends BaseAction{
 		
 		String directoryId = "" ;
 		List<AlbumPic> picList = new ArrayList<AlbumPic>() ;
+		
 		if(directorys != null && !directorys.isEmpty()){
 			directoryId = directorys.get(0).getUuid() ;
 			// 获取画册信息
 			picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		}
+		
+		if(picList != null && !picList.isEmpty()){
+			String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH) ;
+			for(AlbumPic pic : picList){
+				pic.setPicUrl(albumUrl + pic.getPicUrl()) ;
+			}
 		}
 		
 		// 保存信息
@@ -216,6 +250,9 @@ public class AlbumAction extends BaseAction{
 	@RequestMapping(params = { "method=forwardUpdatePicture" }, method = RequestMethod.GET)
 	public String forwardUpdatePicture(@RequestParam("uuid") String uuid,ModelMap map) {
 		AlbumPic pic = this.picService.getPicById(uuid) ;
+
+		String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH) ;
+		pic.setPicUrl(albumUrl + pic.getPicUrl()) ;
 		// 保存信息
 		map.put("picture", pic) ;
  		return "/admin/picture_update";
@@ -250,6 +287,13 @@ public class AlbumAction extends BaseAction{
 		List<AlbumDirectory> directorys = this.directoryService.getAlbumDirectoryByAlbumId(albumId) ;
 		// 获取画册信息
 		List<AlbumPic> picList = this.picService.getAlbumPicListByADId(directoryId) ;
+		
+		if(picList != null && !picList.isEmpty()){
+			String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH) ;
+			for(AlbumPic pic : picList){
+				pic.setPicUrl(albumUrl + pic.getPicUrl()) ;
+			}
+		}
 		
 		// 保存信息
 		map.put("albumId", albumId) ;
