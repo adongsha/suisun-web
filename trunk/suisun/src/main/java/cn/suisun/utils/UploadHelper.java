@@ -30,11 +30,9 @@ public class UploadHelper {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		MultipartFile file11 = multipartRequest.getFile("Filedata");
-		String ctxPath = request.getRealPath("") + "/ui/upload/";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String ymd = sdf.format(new Date());
-		ctxPath += ymd + "/";
-		imagePath = "ui/upload/" + ymd  + "/";
+		String ctxPath = request.getRealPath("") + "/upload/";
+		
+		imagePath = "upload/" ;
 		// 创建文件夹
 		File file = new File(ctxPath);
 		if (!file.exists()) {
@@ -74,11 +72,9 @@ public class UploadHelper {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		MultipartFile file11 = multipartRequest.getFile("Filedata");
-		String ctxPath = request.getRealPath("") + "/ui/upload/album-cover/";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String ymd = sdf.format(new Date());
-		ctxPath += ymd + "/";
-		imagePath = "ui/upload/album-cover/" + ymd  + "/";
+		String ctxPath = request.getRealPath("") + "/upload/album-cover/";
+		
+		imagePath = "upload/album-cover/" ;
 		// 创建文件夹
 		File file = new File(ctxPath);
 		if (!file.exists()) {
@@ -118,11 +114,9 @@ public class UploadHelper {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		MultipartFile file11 = multipartRequest.getFile("Filedata");
-		String ctxPath = request.getRealPath("") + "/ui/upload/album-pic/";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String ymd = sdf.format(new Date());
-		ctxPath += ymd + "/";
-		imagePath = "ui/upload/album-pic/" + ymd  + "/";
+		String ctxPath = request.getRealPath("") + "/upload/album-pic/";
+		
+		imagePath = "upload/album-pic/" ;
 		// 创建文件夹
 		File file = new File(ctxPath);
 		if (!file.exists()) {
@@ -162,11 +156,9 @@ public class UploadHelper {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		MultipartFile file11 = multipartRequest.getFile("Filedata");
-		String ctxPath = request.getRealPath("") + "/ui/upload/app/";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String ymd = sdf.format(new Date());
-		ctxPath += ymd + "/";
-		imagePath = "ui/upload/app/" + ymd  + "/";
+		String ctxPath = request.getRealPath("") + "/upload/app/";
+		
+		imagePath = "upload/app/" ;
 		// 创建文件夹
 		File file = new File(ctxPath);
 		if (!file.exists()) {
