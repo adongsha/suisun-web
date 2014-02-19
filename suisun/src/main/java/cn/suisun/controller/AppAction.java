@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.suisun.beans.AlbumPic;
 import cn.suisun.beans.AppUpdate;
 import cn.suisun.service.AppUpdateService;
+import cn.suisun.utils.GlobalConstants;
+import cn.suisun.utils.PropertiesBean;
 
 @SuppressWarnings("all")
 @Controller
@@ -28,10 +32,15 @@ public class AppAction {
 
 	@Resource
 	AppUpdateService appUpdateService ;
+	
+	@Resource
+	PropertiesBean propertiesBean;
 
 	@RequestMapping(params = { "method=forwardApp" }, method = RequestMethod.GET)
 	public String forwardApp(ModelMap map) {
-		map.put("apps", this.appUpdateService.getAllApp()) ;
+		
+		List<AppUpdate> apps = this.appUpdateService.getAllApp() ;
+		map.put("apps", apps) ;
 		return "/admin/app_update_list";
 	}
 	
@@ -52,7 +61,9 @@ public class AppAction {
 	
 	@RequestMapping(params = { "method=forwardUpdateApp" }, method = RequestMethod.GET)
 	public String forwardUpdateApp(@RequestParam("uuid") String uuid,ModelMap map) {
-		map.put("AppUpdate", this.appUpdateService.getAppById(uuid)) ;
+		AppUpdate app = this.appUpdateService.getAppById(uuid) ;
+		
+		map.put("AppUpdate", app) ;
 		return "/admin/app_update_update";
 	}
 	
@@ -76,8 +87,11 @@ public class AppAction {
 	// APP下载
 	@RequestMapping(params = { "method=download" }, method = RequestMethod.GET)  
 	public void download(HttpServletRequest request,HttpServletResponse res,@RequestParam("url") String url,@RequestParam("version") String version) throws IOException {
+		String appUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.APP_PATH) ;
 		// 文件路径
-		String filePath = request.getRealPath("") + "/" + url ;
+//		String filePath = appUrl + url ;
+		String filePath = request.getRealPath("") + "/upload/app/" + url ;
+		
 		// APP名称
 		String appName = "suisun" + version + filePath.substring(filePath.lastIndexOf("."), filePath.length()) ;
 	    OutputStream os = res.getOutputStream();  
