@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('versionCode').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="appForm" action="u/appAction.htm?method=addApp" method="post" commandName="AppUpdate">
 			<table style="width: 100%;height: auto;border: 0px;">
 				<tr>
