@@ -56,8 +56,10 @@ function uploadify(){
         'onUploadStart' : function(file) {
         },  
         'onUploadSuccess':function(file, data, response){
+        	var strs = data.split("/");
+        	var picName = strs[strs.length - 1] ;
         	// 设置照片地址
-        	$("#albumCover").val(data) ;
+        	$("#albumCover").val(picName) ;
         	$("#albumImg").attr("src",getRootPath() + "/" + data) ;
         	asyncbox.tips("照片上传成功");
         },  
