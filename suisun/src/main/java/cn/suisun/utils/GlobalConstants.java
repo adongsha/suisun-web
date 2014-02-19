@@ -17,4 +17,6 @@ public class GlobalConstants {
 	public static final String ALBUM_PIC_PATH = "album.pic.path";
 	
 	public static final String ALBUM_COVER_PATH = "album.cover.path";
+	
+	public static final String APP_PATH = "app.path";
 }
