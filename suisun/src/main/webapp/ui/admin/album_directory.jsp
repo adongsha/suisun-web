@@ -122,7 +122,7 @@
 											%>
 																<div style="background-color: white;margin-top: 10px;">
 																	<a href="javascript:void(0);" onclick="">
-																		<img alt="" src="<%=basePath%><%=p.getPicUrl()%>" style="margin: 10px" width="300" height="200"/>
+																		<img alt="" src="<%=p.getPicUrl()%>" style="margin: 10px" width="300" height="200"/>
 																	</a>
 																	<table style="width: 100%;">
 																		<tr>
