@@ -41,7 +41,9 @@ function uploadify(){
         },  
         'onUploadSuccess':function(file, data, response){
         	// 设置照片地址
-        	$("#picUrl").val(data) ;
+        	var strs = data.split("/");
+        	var picName = strs[strs.length - 1] ;
+        	$("#picUrl").val(picName) ;
         	$("#pictureImg").attr("src",getRootPath() + "/" + data) ;
         	asyncbox.tips("照片上传成功");
         },  
