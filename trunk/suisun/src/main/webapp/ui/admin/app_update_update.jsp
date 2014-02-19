@@ -30,6 +30,7 @@
 	</head>
 	
 	<body onload="document.getElementById('versionCode').focus()">
+		<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 		<form:form id="appForm" action="u/appAction.htm?method=updateApp" method="post" commandName="AppUpdate">
 			<form:hidden path="uuid"/>
 			<form:hidden path="createTime"/>
