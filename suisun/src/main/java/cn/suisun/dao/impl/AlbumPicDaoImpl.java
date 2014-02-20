@@ -48,4 +48,11 @@ public class AlbumPicDaoImpl extends BaseDaoImpl<AlbumPic> implements
 		pic.setUuid(uuid) ;
 		super.getHibernateTemplate().delete(pic) ;
 	}
+
+	@Override
+	public List<AlbumPic> getAllPic() {
+		return getHibernateTemplate().find("from AlbumPic");
+	}
+	
+	
 }
