@@ -15,4 +15,6 @@ public interface AppUpdateDao {
 	public AppUpdate getAppById(String uuid) ;
 	
 	public void deleteApp(String uuid) ;
+	
+	public AppUpdate getAppUpdateByPlatform(String platform);
 }
