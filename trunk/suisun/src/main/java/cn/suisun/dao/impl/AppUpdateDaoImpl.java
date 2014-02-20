@@ -10,39 +10,49 @@ import cn.suisun.utils.jdbc.BaseDaoImpl;
 
 @SuppressWarnings("all")
 @Repository("AppUpdateDao")
-public class AppUpdateDaoImpl extends BaseDaoImpl<AppUpdate> implements AppUpdateDao {
+public class AppUpdateDaoImpl extends BaseDaoImpl<AppUpdate> implements
+		AppUpdateDao {
 
 	@Override
 	public List<AppUpdate> getAllApp() {
-		String hql = "from AppUpdate " ;
+		String hql = "from AppUpdate ";
 		return super.getHibernateTemplate().find(hql);
 	}
 
 	@Override
 	public void save(AppUpdate app) {
-		super.getHibernateTemplate().save(app) ;
+		super.getHibernateTemplate().save(app);
 	}
 
 	@Override
 	public void update(AppUpdate app) {
-		super.getHibernateTemplate().update(app) ;
+		super.getHibernateTemplate().update(app);
 	}
 
 	@Override
 	public AppUpdate getAppById(String uuid) {
-		String hql = "from AppUpdate where uuid = ? " ;
-		List<AppUpdate> list = super.getHibernateTemplate().find(hql,new String[]{uuid}) ;
-		
-		if(list != null && !list.isEmpty()){
-			return list.get(0) ;
+		String hql = "from AppUpdate where uuid = ? ";
+		List<AppUpdate> list = super.getHibernateTemplate().find(hql,
+				new String[] { uuid });
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
 		}
-		return null ;
+		return null;
 	}
-	
+
 	public void deleteApp(String uuid) {
-		AppUpdate app = new AppUpdate() ;
-		app.setUuid(uuid) ;
-		super.getHibernateTemplate().delete(app) ;
+		AppUpdate app = new AppUpdate();
+		app.setUuid(uuid);
+		super.getHibernateTemplate().delete(app);
+	}
+
+	@Override
+	public AppUpdate getAppUpdateByPlatform(String platform) {
+		List<AppUpdate> list = getHibernateTemplate().find(
+				"from AppUpdate where appPlatform =?",
+				new String[] { platform });
+		return list.size() > 0 ? list.get(0) : null;
 	}
 
 }
