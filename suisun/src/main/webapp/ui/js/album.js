@@ -118,3 +118,14 @@ function saveAlbum(){
 	// 提交表单
 	$("#albumForm").submit() ;
 }
+
+// 删除画册
+function deleteAlbum(uuid){
+	if(confirm("是否删除画册?")){
+		$.post("u/albumsAction.htm?method=deleteAlbum", {
+			"uuid" : uuid
+		}, function(data) {
+			window.location.reload() ;
+		});
+	}
+}

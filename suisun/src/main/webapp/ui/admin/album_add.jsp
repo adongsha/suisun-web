@@ -45,7 +45,7 @@
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						画册别名 <form:input path="albumAlias"/>
+						画册别名 <form:input path="albumAlias" readonly="true"/>
 					</td>
 				</tr>
 				<tr>
