@@ -38,4 +38,6 @@ public interface AlbumService {
 	public List<Album> getAlbumListByIndustryId(String industryId,int currentPage, int pageSize);
 	
 	public int getAlbumListByIndustryIdAmouint(String industryId);
+	
+	public void deleteAlbum(String uuid) ;
 }

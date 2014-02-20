@@ -106,4 +106,9 @@ public class AlbumDaoImpl extends BaseDaoImpl<Album> implements AlbumDao {
 		super.getHibernateTemplate().save(publish) ;
 	}
 
+	public void deleteAlbum(String uuid) {
+		Album album = new Album() ;
+		album.setUuid(uuid) ;
+		super.getHibernateTemplate().delete(album) ;	
+	}
 }

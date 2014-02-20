@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.suisun.beans.AlbumPic;
 import cn.suisun.beans.AppUpdate;
 import cn.suisun.service.AppUpdateService;
 import cn.suisun.utils.GlobalConstants;
@@ -56,12 +58,25 @@ public class AppAction {
 	@RequestMapping(params = { "method=forwardAddApp" }, method = RequestMethod.GET)
 	public String forwardAddApp(ModelMap map) {
 		map.put("AppUpdate", new AppUpdate()) ;
+		
+		List<String> platforms = new ArrayList<String>() ;
+		platforms.add("IPHONE") ;
+		platforms.add("ANDROID") ;
+		platforms.add("IPAD") ;
+		map.put("platforms", platforms) ;
+		
 		return "/admin/app_update_add";
 	}
 	
 	@RequestMapping(params = { "method=forwardUpdateApp" }, method = RequestMethod.GET)
 	public String forwardUpdateApp(@RequestParam("uuid") String uuid,ModelMap map) {
 		AppUpdate app = this.appUpdateService.getAppById(uuid) ;
+		
+		List<String> platforms = new ArrayList<String>() ;
+		platforms.add("IPHONE") ;
+		platforms.add("ANDROID") ;
+		platforms.add("IPAD") ;
+		map.put("platforms", platforms) ;
 		
 		map.put("AppUpdate", app) ;
 		return "/admin/app_update_update";
