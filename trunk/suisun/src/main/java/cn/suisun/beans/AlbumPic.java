@@ -19,6 +19,7 @@ public class AlbumPic {
 	private String englishName;
 	private String picUrl;
 	private Integer indexPic;
+	private int praise;  //点赞
 	private String updateTime;
 	/**
 	 * 图片审核 0：刚提交图片 1：审核通过 -1:审核不通过
@@ -29,9 +30,11 @@ public class AlbumPic {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public AlbumPic(String uuid, String albumDirectoryId, String picName,
-			String englishName, String picUrl, Integer indexPic, Integer audit,
-			String updateTime) {
+			String englishName, String picUrl, Integer indexPic, int praise,
+			String updateTime, Integer audit) {
 		super();
 		this.uuid = uuid;
 		this.albumDirectoryId = albumDirectoryId;
@@ -39,9 +42,12 @@ public class AlbumPic {
 		this.englishName = englishName;
 		this.picUrl = picUrl;
 		this.indexPic = indexPic;
-		this.audit = audit;
+		this.praise = praise;
 		this.updateTime = updateTime;
+		this.audit = audit;
 	}
+
+
 
 	@Id
 	@GenericGenerator(name = "systemUUID", strategy = "uuid")
@@ -110,4 +116,13 @@ public class AlbumPic {
 		this.updateTime = updateTime;
 	}
 
+	public int getPraise() {
+		return praise;
+	}
+
+	public void setPraise(int praise) {
+		this.praise = praise;
+	}
+
+	
 }
