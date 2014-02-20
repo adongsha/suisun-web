@@ -32,6 +32,7 @@
 					<h2>
 						<label>画册管理</label> 
 						<label style="margin-left: 100px; float: right;">
+								<input type="button" value="新建画册" id="addAlbum" style="margin-right: 10;"/>
 								<c:if test="${not empty enterprises}">
 									企业名称:
 										<select id="enterprises" style="margin-right: 20">
@@ -51,7 +52,6 @@
 								</c:if>
 								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
 								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
-								<input type="button" value="新建画册" id="addAlbum"/>
 						</label>
 					</h2>
 					<table>
@@ -93,16 +93,17 @@
 														<tr>
 															<td width="70%" style="padding-left: 10px">
 																<a href="javascript:void(0);" onclick="">
-																	<font size="3px" color="black"><%=album.getAlbumName()%></font>
+																	<font style="font-size: 14" color="black"><%=album.getAlbumName()%></font>
 																</a>
 															</td>
 															
-															<td width="30%" align="right" style="padding-right: 10px" valign="top">
+															<td  align="right" style="padding-right: 10px" valign="top">
 																<a href="javascript:void(0);" id="edit" onclick="editAlbum('<%=album.getUuid()%>')">
-																	<img src="ui/images/edit.png" border="0" align="middle"/>
+																	<font style="font-size: 12">编辑</font>
 																</a>
+																<font style="font-size: 12">|</font>
 																<a href="javascript:void(0);" id="edit" onclick="deleteAlbum('<%=album.getUuid()%>')">
-																	<img onclick="" alt="删除" src="ui/images/trash.gif" border="0" align="middle"/>
+																	<font style="font-size: 12">删除</font>
 																</a>
 															</td>
 														</tr>
