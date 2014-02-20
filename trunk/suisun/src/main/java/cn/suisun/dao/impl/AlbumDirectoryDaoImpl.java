@@ -1,11 +1,13 @@
 package cn.suisun.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import cn.suisun.beans.AlbumDirectory;
+import cn.suisun.beans.AlbumPic;
 import cn.suisun.dao.AlbumDirectoryDao;
 import cn.suisun.utils.jdbc.BaseDaoImpl;
 
@@ -13,6 +15,18 @@ import cn.suisun.utils.jdbc.BaseDaoImpl;
 @Repository("AlbumDirectoryDao")
 public class AlbumDirectoryDaoImpl extends BaseDaoImpl<AlbumDirectory>
 		implements AlbumDirectoryDao {
+	
+	public void deleteAll(String id) {
+		String ids[] = id.split(",") ;
+		List<AlbumPic> pics = new ArrayList<AlbumPic>() ;
+		
+		for(String temp : ids){
+			AlbumPic pic = new AlbumPic() ;
+			pic.setUuid(temp) ;
+			pics.add(pic) ;
+		}
+		super.getHibernateTemplate().deleteAll(pics) ;
+	}
 
 	@Override
 	public List<AlbumDirectory> getAlbumDirectoryByAlbumId(String albumId) {

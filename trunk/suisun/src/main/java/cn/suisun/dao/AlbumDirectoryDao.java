@@ -18,6 +18,8 @@ public interface AlbumDirectoryDao {
 	// 删除画册目录信息
 	public void deleteById(String uuid) ;
 	
+	public void deleteAll(String id) ;
+	
 	// 根据ID获取画册目录
 	public AlbumDirectory getDirectoryByAlbumId(String uuid,String albumId) ;
 	
