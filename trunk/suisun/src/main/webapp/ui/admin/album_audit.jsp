@@ -49,10 +49,10 @@
 
 				<div id="right_content">
 					<h2>
-						<label>画册审批</label> <label
+						<label>画册审批</label> <!-- <label
 							style="margin-left: 100px; float: right;"> <input
 							type="text" placeholder="画册名称" id="albumName"/> <a href="javascript:void(0);"
-							class="button greens" onclick="showAuditInfo()">搜索</a> </label>
+							class="button greens" onclick="showAuditInfo()">搜索</a> </label> -->
 					</h2>
 					<table id="rounded-corner">
 						<thead>
@@ -80,10 +80,18 @@
 									<td align="center" style="font-size: 12">${p.createTime}</td>
 									<td align="center" style="font-size: 12">${p.updateContent}</td>
 									<td align="center" style="font-size: 12">
+										<c:if test="${p.audit == 0}">
 										<a href="javascript:void(0);" id="edit"
 										onclick="changeStatus('${p.uuid}','1')"> 通过 </a> <a
 										href="javascript:void(0);" id="trash"
 										onclick="changeStatus('${p.uuid}','-1')"> 拒绝 </a>
+										</c:if>
+										<c:if test="${p.audit == 1}">
+											<font color="green">通过</font>
+										</c:if>
+										<c:if test="${p.audit == -1}">
+											<font color="red">拒绝</font>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>

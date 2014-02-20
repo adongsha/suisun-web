@@ -44,7 +44,7 @@
 
 				<div id="right_content">
 					<h2>
-						<label>系统版本管理</label> <label
+						<label>手机端软件升级管理</label> <label
 							style="margin-left: 100px; float: right;"> 
 							<input type="button" value="新建" onclick="forwardAddApp()" style="margin-right: 10px;"/>
 						</label>

@@ -97,9 +97,12 @@
 																</a>
 															</td>
 															
-															<td width="30%" align="right" style="padding-right: 10px">
+															<td width="30%" align="right" style="padding-right: 10px" valign="top">
 																<a href="javascript:void(0);" id="edit" onclick="editAlbum('<%=album.getUuid()%>')">
-																	<img src="ui/images/edit.png" border="0" />
+																	<img src="ui/images/edit.png" border="0" align="middle"/>
+																</a>
+																<a href="javascript:void(0);" id="edit" onclick="deleteAlbum('<%=album.getUuid()%>')">
+																	<img onclick="" alt="删除" src="ui/images/trash.gif" border="0" align="middle"/>
 																</a>
 															</td>
 														</tr>

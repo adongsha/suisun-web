@@ -102,7 +102,7 @@ function forwardAddPicture(directoryId){
 		return ;
 	}
 	var uri = "u/albumsAction.htm?method=forwardAddPicture&directoryId=" + directoryId ;
-	window.open(uri,'画册目录','height=480,width=420,top=150,left=510,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
+	window.open(uri,'画册图片','height=480,width=420,top=150,left=510,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no,depended=no,alwaysRaised=yes');
 }
 
 // 保存照片信息

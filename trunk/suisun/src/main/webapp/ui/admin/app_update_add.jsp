@@ -40,7 +40,12 @@
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						软件平台 <form:input path="appPlatform"/>
+						软件平台 <form:select path="appPlatform">
+									<form:option value="">-----请选择-----</form:option>
+									<c:forEach items="${platforms}" var="plat">
+										<form:option value="${plat}">${plat}</form:option>
+									</c:forEach>
+								</form:select>
 					</td>
 				</tr>
 				<tr>
