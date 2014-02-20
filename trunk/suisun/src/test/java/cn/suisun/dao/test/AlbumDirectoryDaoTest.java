@@ -33,13 +33,16 @@ public class AlbumDirectoryDaoTest {
 	public void testSave() {
 		List<Album> list = albumDao.getAlbumList();
 		for (int i = 0; i < 10; i++) {
-			AlbumDirectory ad = new AlbumDirectory();
-			ad.setAlbumId(list.get(i).getUuid());
-			ad.setDirectoryEnglish("directoryEnglish-" + i);
-			ad.setDirectoryName("directoryName-" + i);
-			ad.setIndexDirectory(1);
-			ad.setPicNum(2);
-			albumDirectoryDao.save(ad);
+			for(int j=0; j<3; j++){
+				AlbumDirectory ad = new AlbumDirectory();
+				ad.setAlbumId(list.get(i).getUuid());
+				ad.setDirectoryEnglish("directoryEnglish-" + j);
+				ad.setDirectoryName("directoryName-" + j);
+				ad.setIndexDirectory(j+1);
+				ad.setPicNum(6);
+				albumDirectoryDao.save(ad);
+				
+			}
 		}
 	}
 
@@ -47,7 +50,7 @@ public class AlbumDirectoryDaoTest {
 	public void testAlbumPicSave() {
 		List<AlbumDirectory> list = albumDirectoryDao.getAll();
 		for (AlbumDirectory a : list) {
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 6; i++) {
                 AlbumPic ap = new AlbumPic();
                 ap.setAlbumDirectoryId(a.getUuid());
                 ap.setAudit(1);
@@ -57,6 +60,15 @@ public class AlbumDirectoryDaoTest {
                 ap.setPicUrl("picUrl"+i);
                 albumPicDao.save(ap);
 			}
+		}
+	}
+	
+	@Test
+	public void testUpdate(){
+		List<AlbumPic> list = albumPicDao.getAllPic();
+		for(AlbumPic p : list){
+			p.setPicUrl(p.getPicUrl()+".jpg");
+			albumPicDao.update(p);
 		}
 	}
 }
