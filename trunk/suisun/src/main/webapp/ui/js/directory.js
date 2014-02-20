@@ -154,3 +154,29 @@ function deletePicture(uuid){
 		});
 	}
 }
+
+// 删除选中
+function deleteAll(){
+	var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
+	var ids = "" ;
+	
+	for(var i=0;i<inputs.length;i++){
+	  var obj = inputs[i];
+	  if(obj.type=='checkbox' && obj.checked){
+		  ids += obj.value + "," ;
+	  }
+	}
+	
+	// 截取ID
+	ids = ids.substring(0, ids.length-1) ;
+	
+	if(ids != ""){
+		$.post("u/albumsAction.htm?method=deleteAllPictrue", {
+			"id" : ids
+		}, function(data) {
+			window.location.reload() ;
+		});
+	}else{
+		asyncbox.tips("请选择画册图片");
+	}
+}

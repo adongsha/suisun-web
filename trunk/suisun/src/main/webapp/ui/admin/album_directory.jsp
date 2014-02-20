@@ -41,9 +41,10 @@
 				<div id="right_content">
 					<h2>
 						<label>
-							画册目录
+							${sessionScope.user.enterpriseName}画册
 						</label>
 						<label style="text-align: right;margin-right: 10px;">
+							<input type="button" value="删除选中" class="btn" onclick="deleteAll()"/>
 							<input type="button" value="查看画册二维码" class="btn" onclick="forwardErWeiMa()"/>
 							<input type="button" value="上传图片" onclick="forwardAddPicture('${directoryId}')" class="btn"/>
 							<!-- <input type="button" value="编辑名片" id="editCard" class="btn"/> -->
@@ -127,17 +128,19 @@
 																	<table style="width: 100%;">
 																		<tr>
 																			<td width="70%" style="padding-left: 10px;padding-bottom: 10px;">
-																				<a href="javascript:void(0);" onclick="">
-																					<font size="3px" color="black"><%=p.getPicName()%></font>
+																				<input type="checkbox" value="<%=p.getUuid()%>" class="<%=i%>"/>
+																				<a href="javascript:void(0);">
+																					<font style="font-size: 14" color="black"><%=p.getPicName()%></font>
 																				</a>
 																			</td>
 																			
 																			<td width="30%" align="right" style="padding-right: 10px;padding-bottom: 10px;">
 																				<a href="javascript:void(0);" id="edit" onclick="editPicture('<%=p.getUuid()%>')">
-																					<img src="ui/images/edit.png" border="0" />
+																					<font style="font-size: 12">编辑</font>
 																				</a>
+																				<font style="font-size: 12">|</font>
 																				<a style="padding-left: 5px;" href="javascript:void(0);" onclick="deletePicture('<%=p.getUuid()%>')">
-																					<img style="margin-right: 5px;" onclick="" alt="删除" src="ui/images/trash.gif" border="0" align="middle"/>
+																					<font style="font-size: 12">删除</font>
 																				</a>
 																			</td>
 																		</tr>
