@@ -30,16 +30,32 @@ public class AlbumDaoTest {
 		for (int i = 0; i < 10; i++) {
              Album album = new Album();
              album.setAlbumEnglish("albumEnglish");
-             album.setAlbumName(i+"-album");
              album.setAlbumPassword(i+"");
              album.setCreateTime(new Date());
              album.setIsAutoDownload(false);
              album.setAlbumAlias(AlbumAlias.getAlbumAlist());
-             if(i%2==0){
-            	 album.setAlbumCover("cover1.jpg");            	 
-             } else {
-            	 album.setAlbumCover("cover2.jpg");
-             }
+             album.setAlbumName("画册"+i);
+             switch (i%5) {
+			case 0:
+				album.setAlbumCover("cover1.jpg");    
+				break;
+			case 1:
+				album.setAlbumCover("cover2.jpg");    
+				break;
+			case 2:
+				album.setAlbumCover("cover3.jpg");    
+				break;
+			case 3:
+				album.setAlbumCover("cover4.jpg");    
+				break;
+			case 4:
+				album.setAlbumCover("cover5.jpg");  
+				break;
+			default:
+				album.setAlbumCover("cover6.jpg");
+				break;
+			}
+         
              album.setUserId(list.get(i).getUuid());
              albumDao.save(album);
 		}
