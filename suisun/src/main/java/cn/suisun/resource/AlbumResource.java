@@ -20,12 +20,15 @@ import org.springframework.util.StringUtils;
 import cn.suisun.beans.Album;
 import cn.suisun.beans.AlbumDirectory;
 import cn.suisun.beans.AlbumPic;
+import cn.suisun.beans.AlbumUpdate;
 import cn.suisun.beans.Industry;
 import cn.suisun.beans.Recommend;
 import cn.suisun.beans.User;
+import cn.suisun.dao.AlbumUpdateDao;
 import cn.suisun.service.AlbumDirectoryService;
 import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
+import cn.suisun.service.AlbumUpdateService;
 import cn.suisun.service.IndustryService;
 import cn.suisun.service.RecommendService;
 import cn.suisun.service.UserService;
@@ -59,6 +62,8 @@ public class AlbumResource {
 	@Resource
 	PropertiesBean propertiesBean;
 	
+	@Resource
+    AlbumUpdateService albumUpdateService;	
 	/**
 	 * 根据画册ID获取单个画册的所有信息接口。
 	 * 
@@ -361,14 +366,38 @@ public class AlbumResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getFeeds(@FormParam("data")String data){
 		JSONArray ja = JSONArray.fromObject(data);
+		JSONObject result = new JSONObject();
+		JSONArray dataJa = new JSONArray();
+		
 		for(int i=0; i< ja.size(); i++){
 			JSONObject json = ja.getJSONObject(i);
 			String albumId = json.getString("albumId");
 			long time = json.getLong("time");
-			Album album = albumService.getAlbumById(albumId);
-			
+			AlbumUpdate albumUpdate = albumUpdateService.getAlbumUpdateByAlbumId(albumId);
+			if(StringUtils.isEmpty(albumUpdate)){
+				
+			} else {
+				if(time < albumUpdate.getCreateTime().getTime()){
+					JSONObject sub = JSONObject.fromObject(albumUpdate);
+					dataJa.add(sub);
+				}
+			}
 		}
-		return "";
+		result.put("statuCode", 200);
+		result.put("data", dataJa);
+		return result.toString();
+	}
+	
+	@POST
+	@Path("picPraise")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String picPraise(@QueryParam("picId")String picId){
+		AlbumPic pic = albumPicService.getPicById(picId);
+		pic.setPraise(pic.getPraise()+1);
+		albumPicService.update(pic);
+		JSONObject json = new JSONObject();
+		json.put("statuCode", 200);
+		return json.toString();
 	}
 	
 }
