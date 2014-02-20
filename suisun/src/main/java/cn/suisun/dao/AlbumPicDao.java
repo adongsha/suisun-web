@@ -24,4 +24,6 @@ public interface AlbumPicDao {
 	
 	// 根据ID删除照片
 	public void deleteById(String uuid) ;
+	
+	public List<AlbumPic> getAllPic();
 }
