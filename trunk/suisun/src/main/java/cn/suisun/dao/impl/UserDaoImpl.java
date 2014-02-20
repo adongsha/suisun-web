@@ -1,15 +1,13 @@
 package cn.suisun.dao.impl;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import cn.suisun.beans.Album;
 import cn.suisun.beans.AlbumUpdate;
 import cn.suisun.beans.User;
 import cn.suisun.dao.UserDao;
@@ -111,13 +109,15 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     // 获取画册审批信息
     public List<AlbumUpdateVO> getAlbumUpdateInfo(int audit,String albumName) {
     	List<AlbumUpdateVO> result = new ArrayList<AlbumUpdateVO>() ;
-    	String hql = "select u.uuid,s.enterpriseName,a.albumName,a.albumEnglish,u.createTime,u.updateContent "
+    	String hql = "select u.uuid,s.enterpriseName,a.albumName,a.albumEnglish,u.createTime,u.updateContent,u.audit "
     				+ "from AlbumUpdate u,Album a,User s "
-    				+ "where u.albumId = a.uuid and u.userId = s.uuid and u.audit = "+ audit +" " ;
+    				+ "where u.albumId = a.uuid and u.userId = s.uuid " ;
     	
     	if(albumName != null && !"".equals(albumName)){
     		hql += " and a.albumName like '%"+ albumName +"'%" ;
     	}
+    	
+    	hql += " order by u.audit" ;
     	
     	List<Object[]> objs = super.getHibernateTemplate().find(hql) ;
     	AlbumUpdateVO entity = null ;
@@ -130,6 +130,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     		entity.setEnglisthName(String.valueOf(obj[3])) ;
 			entity.setCreateTime(String.valueOf(obj[4])) ;
     		entity.setUpdateContent(String.valueOf(obj[5])) ;
+    		entity.setAudit(Integer.parseInt(String.valueOf(obj[6]))) ;
     		result.add(entity) ;
     	}
     	return result ;
@@ -143,6 +144,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
     	if(list != null && !list.isEmpty()){
     		entity = list.get(0) ;
     	}
+    	entity.setCreateTime(new Date()) ;
     	// 修改审批状态
     	entity.setAudit(audit) ;
     	// 修改审核信息

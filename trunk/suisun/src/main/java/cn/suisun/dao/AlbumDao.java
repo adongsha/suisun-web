@@ -39,4 +39,6 @@ public interface AlbumDao {
 	
 	// 保存发布信息
 	public void savePublish(AlbumUpdate publish) ;
+	
+	public void deleteAlbum(String uuid) ;
 }

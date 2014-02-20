@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +26,10 @@ import cn.suisun.service.AlbumDirectoryService;
 import cn.suisun.service.AlbumPicService;
 import cn.suisun.service.AlbumService;
 import cn.suisun.service.UserService;
+import cn.suisun.utils.AlbumAlias;
 import cn.suisun.utils.BaseAction;
 import cn.suisun.utils.GlobalConstants;
 import cn.suisun.utils.PropertiesBean;
-import cn.suisun.utils.PropertiesUtils;
 import cn.suisun.vos.AlbumUpdateVO;
 
 /**
@@ -113,8 +115,12 @@ public class AlbumAction extends BaseAction{
 	// 跳转至新增画册
 	@RequestMapping(params = { "method=forwardAddAlbum" }, method = RequestMethod.GET)
 	public String forwardAddAlbum(ModelMap map) {
+		Album album = new Album() ;
+		// 别名
+		album.setAlbumAlias(AlbumAlias.getAlbumAlist()) ;
+		
 		// 保存信息
-		map.put("album", new Album()) ;
+		map.put("album", album) ;
 		return "admin/album_add";
 	}
 		
@@ -148,6 +154,7 @@ public class AlbumAction extends BaseAction{
 		Album album = this.albumService.getAlbumById(uuid) ;
 		String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH) ;
 		album.setAlbumCover(albumUrl + album.getAlbumCover()) ;
+		
 		// 保存信息
 		map.put("album", album) ;
 		return "admin/album_update";
@@ -228,6 +235,19 @@ public class AlbumAction extends BaseAction{
 	public void deleteDirectory(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {
 		// 删除画册目录信息
 		this.directoryService.deleteById(uuid) ;
+		
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 删除画册目录
+	@RequestMapping(params = { "method=deleteAlbum" }, method = RequestMethod.POST)
+	public void deleteAlbum(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {
+		// 删除画册
+		this.albumService.deleteAlbum(uuid) ;
 		
 		try {
 			response.getWriter().write("") ;

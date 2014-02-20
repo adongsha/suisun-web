@@ -47,10 +47,10 @@ public class AlbumServiceImpl implements AlbumService {
 	public List<Album> getAlbumList(String albumName, String enterpriseName) {
 		return this.albumDao.getAlbumList(albumName, enterpriseName);
 	}
-	
+
 	// 保存发布信息
 	public void savePublish(AlbumUpdate publish) {
-		this.albumDao.savePublish(publish) ;
+		this.albumDao.savePublish(publish);
 	}
 
 	@Override
@@ -59,8 +59,7 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public List getAlbumByKeyword(String keyword, int currentPage,
-			int pageSize) {
+	public List getAlbumByKeyword(String keyword, int currentPage, int pageSize) {
 		return albumDao.getAlbumByKeyword(keyword, currentPage, pageSize);
 	}
 
@@ -70,14 +69,19 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public List<Album> getAlbumListByIndustryId(String industryId,int currentPage, int pageSize) {
-		return albumDao.getAlbumListByIndustryId(industryId, currentPage, pageSize);
+	public List<Album> getAlbumListByIndustryId(String industryId,
+			int currentPage, int pageSize) {
+		return albumDao.getAlbumListByIndustryId(industryId, currentPage,
+				pageSize);
 	}
 
 	@Override
 	public int getAlbumListByIndustryIdAmouint(String industryId) {
 		return albumDao.getAlbumListByIndustryIdAmouint(industryId);
 	}
-	
-	
+
+	public void deleteAlbum(String uuid) {
+		this.albumDao.deleteAlbum(uuid) ;
+	}
+
 }
