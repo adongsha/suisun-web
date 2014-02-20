@@ -80,6 +80,7 @@ function startUpload(){
 // 画册搜索
 function searchAlbum(){
 	var url = "u/albumsAction.htm?method=showAlbums&albumName="+ $("#albumName").val() +"&enterpriseName=" + $("#enterprises").val() ;
+	alert(url) ;
 	window.location.href = url ;
 }
 

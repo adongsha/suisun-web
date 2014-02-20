@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="ui/js/jquery/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="ui/js/uploadify/jquery.uploadify-3.1.min.js"></script>
 		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
+		
 	</head>
 <body>
 	<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
