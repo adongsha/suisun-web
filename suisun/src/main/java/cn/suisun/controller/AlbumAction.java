@@ -243,6 +243,19 @@ public class AlbumAction extends BaseAction{
 		}
 	}
 	
+	// 删除选中图片
+	@RequestMapping(params = { "method=deleteAllPictrue" }, method = RequestMethod.POST)
+	public void deleteAllPictrue(HttpServletResponse response,@RequestParam("id") String id,ModelMap map) {
+		// 删除画册目录信息
+		this.directoryService.deleteAll(id) ;
+		
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// 删除画册目录
 	@RequestMapping(params = { "method=deleteAlbum" }, method = RequestMethod.POST)
 	public void deleteAlbum(HttpServletResponse response,@RequestParam("uuid") String uuid,ModelMap map) {

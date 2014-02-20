@@ -20,4 +20,6 @@ public interface AlbumDirectoryService {
 	
 	// 根据ID获取画册目录
 	public AlbumDirectory getDirectoryByAlbumId(String uuid,String albumId) ;
+	
+	public void deleteAll(String id) ;
 }

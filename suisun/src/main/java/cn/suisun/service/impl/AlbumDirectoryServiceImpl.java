@@ -22,6 +22,10 @@ public class AlbumDirectoryServiceImpl implements AlbumDirectoryService {
 		return albumDirectoryDao.getAlbumDirectoryByAlbumId(albumId);
 	}
 	
+	public void deleteAll(String id){
+		this.albumDirectoryDao.deleteAll(id) ;
+	}
+	
 	// 新增画册信息
 	public Serializable save(AlbumDirectory directory) {
 		return this.albumDirectoryDao.save(directory) ;
