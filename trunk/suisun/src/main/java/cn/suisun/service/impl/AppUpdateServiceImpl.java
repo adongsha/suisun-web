@@ -39,4 +39,11 @@ public class AppUpdateServiceImpl implements AppUpdateService{
 	public void deleteApp(String uuid){
 		this.appUpdateDao.deleteApp(uuid) ;
 	}
+
+	@Override
+	public AppUpdate getAppUpdateByPlatform(String platform) {
+		return appUpdateDao.getAppUpdateByPlatform(platform);
+	}
+	
+	
 }
