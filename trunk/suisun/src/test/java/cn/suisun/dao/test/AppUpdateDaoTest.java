@@ -20,12 +20,12 @@ public class AppUpdateDaoTest {
 	@Test
 	public void save(){
 		AppUpdate a = new AppUpdate();
-		a.setAppPlatform("mobile");
+		a.setAppPlatform("iphone");
 		a.setCreateTime(new Date().toString());
 		a.setDownloadUrl("http://115.28.175.215");
 		a.setMd5("adfsadf");
 		a.setUpdateContent("我要更新");
-		a.setVersionCode("1.0");
+		a.setVersionCode("3.0");
 		appUpdateDao.save(a);
 	}
 }
