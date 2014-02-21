@@ -19,7 +19,7 @@ public class AlbumPic {
 	private String englishName;
 	private String picUrl;
 	private Integer indexPic;
-	private int praise;  //点赞
+	private Integer praise;  //点赞
 	private String updateTime;
 	/**
 	 * 图片审核 0：刚提交图片 1：审核通过 -1:审核不通过
@@ -33,7 +33,7 @@ public class AlbumPic {
 
 
 	public AlbumPic(String uuid, String albumDirectoryId, String picName,
-			String englishName, String picUrl, Integer indexPic, int praise,
+			String englishName, String picUrl, Integer indexPic, Integer praise,
 			String updateTime, Integer audit) {
 		super();
 		this.uuid = uuid;
@@ -116,11 +116,11 @@ public class AlbumPic {
 		this.updateTime = updateTime;
 	}
 
-	public int getPraise() {
+	public Integer getPraise() {
 		return praise;
 	}
 
-	public void setPraise(int praise) {
+	public void setPraise(Integer praise) {
 		this.praise = praise;
 	}
 
