@@ -37,6 +37,34 @@
 	function showAuditInfo(){
 		window.location.href = "u/albumsAction.htm?method=showAuditInfo&albumName=" + $("#albumName").val() ;
 	}
+	
+	// 推送选中
+	function pushInfo(){
+		var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
+		var ids = "" ;
+		
+		for(var i=0;i<inputs.length;i++){
+		  var obj = inputs[i];
+		  if(obj.type=='checkbox' && obj.checked){
+			  ids += obj.value + "," ;
+		  }
+		}
+		
+		// 截取ID
+		ids = ids.substring(0, ids.length-1) ;
+		
+		if(ids != ""){
+			alert(ids) ;
+			return ;
+			$.post("u/albumsAction.htm?method=deleteAllPictrue", {
+				"id" : ids
+			}, function(data) {
+				window.location.reload() ;
+			});
+		}else{
+			asyncbox.tips("请选择审批信息");
+		}
+	}
 </script>
 
 </head>
@@ -49,7 +77,11 @@
 
 				<div id="right_content">
 					<h2>
-						<label>画册审批</label> <!-- <label
+						<label>画册审批</label>
+							<label style="float: right;margin-right: 10;">
+								<input type="button" value="推送选中" onclick="pushInfo()">
+							</label>
+							 <!-- <label
 							style="margin-left: 100px; float: right;"> <input
 							type="text" placeholder="画册名称" id="albumName"/> <a href="javascript:void(0);"
 							class="button greens" onclick="showAuditInfo()">搜索</a> </label> -->
@@ -57,6 +89,7 @@
 					<table id="rounded-corner">
 						<thead>
 							<tr>
+								<th align="center" width="50">选择</th>
 								<th align="center" width="100">企业名称</th>
 								<th align="center" width="100">画册名称</th>
 								<th align="center" width="100">英文名称</th>
@@ -74,6 +107,9 @@
 									<c:if test="${status.count%2 == 0}">
 										class="odd"
 									</c:if>>
+									<td align="center" style="font-size: 12">
+										<input type="checkbox" value="${p.uuid}" />
+									</td>
 									<td align="center" style="font-size: 12">${p.userName}</td>
 									<td align="center" style="font-size: 12">${p.albumName}</td>
 									<td align="center" style="font-size: 12">${p.englisthName}</td>
