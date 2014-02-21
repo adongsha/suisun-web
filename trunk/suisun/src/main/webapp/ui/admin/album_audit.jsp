@@ -38,6 +38,23 @@
 		window.location.href = "u/albumsAction.htm?method=showAuditInfo&albumName=" + $("#albumName").val() ;
 	}
 	
+	// 推送所有
+	function pushAllInfo(){
+		var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
+		
+		for(var i=0;i<inputs.length;i++){
+			var obj = inputs[i];
+			
+			if(obj.type=='checkbox'){
+				if(obj.checked){
+					obj.checked = false ;
+				}else{
+					obj.checked = true ;
+				}
+			}
+		}
+	}
+	
 	// 推送选中
 	function pushInfo(){
 		var inputs = document.getElementsByTagName("input");//获取所有的input标签对象
@@ -79,7 +96,7 @@
 					<h2>
 						<label>画册审批</label>
 							<label style="float: right;margin-right: 10;">
-								<input type="button" value="推送选中" onclick="pushInfo()">
+								<input type="button" name="pushAll" value="推送选中" onclick="pushInfo()">
 							</label>
 							 <!-- <label
 							style="margin-left: 100px; float: right;"> <input
@@ -89,7 +106,7 @@
 					<table id="rounded-corner">
 						<thead>
 							<tr>
-								<th align="center" width="50">选择</th>
+								<th align="center" width="80"><input type="button" value="全选" onclick="pushAllInfo()"/></th>
 								<th align="center" width="100">企业名称</th>
 								<th align="center" width="100">画册名称</th>
 								<th align="center" width="100">英文名称</th>

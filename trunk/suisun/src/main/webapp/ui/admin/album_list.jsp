@@ -21,7 +21,7 @@
 		<script type="text/javascript" src="ui/js/album.js" charset="UTF-8"></script>
 		
 	</head>
-<body>
+<body onload="document.getElementById('albumName').focus();">
 	<input type="hidden" id="sessionid" value="${pageContext.session.id}"/>
 	<div id="wrapper">
 		<div id="content">
@@ -31,10 +31,13 @@
 
 				<div id="right_content">
 					<h2>
-						<label>画册管理</label> 
-						<label style="margin-left: 100px; float: right;">
-								<input type="button" value="新建画册" id="addAlbum" style="margin-right: 10;"/>
-								<c:if test="${not empty enterprises}">
+						<label>画册管理</label>
+						<label style="margin-left: 10px; float: right;">
+								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
+								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
+						</label>
+						<label style="margin-left: 10px; float: right;">
+							<c:if test="${not empty enterprises}">
 									企业名称:
 										<select id="enterprises" style="margin-right: 20">
 											<option value="">
@@ -51,8 +54,10 @@
 											</c:choose>
 										</select>
 								</c:if>
-								<input type="text" id="albumName" size="14" placeholder="相册名称" value="<%=request.getAttribute("albumName")%>"/>
-								<a href="javascript:void(0);" class="button greens" id="searchBtn">搜索</a>
+						</label>
+						
+						<label style="margin-left: 10px; float: right;"> 
+							<input type="button" value="新建画册" id="addAlbum" style="margin-right: 10;"/>
 						</label>
 					</h2>
 					<table>
