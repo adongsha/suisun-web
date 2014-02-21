@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.util.StringUtils;
 
 import cn.suisun.beans.Industry;
 import cn.suisun.beans.User;
@@ -28,10 +29,14 @@ public class UserDaoTest {
 	@Test
 	public void testAdmin(){
 		User user = new User();
-		user.setAccount("admin");
-		user.setPassword("admin");
+		user.setAccount("admin2");
+		user.setPassword("admin2");
 		user.setPower(0);
-		userDao.save(user);
+		if(StringUtils.isEmpty(userDao.save(user))){
+			System.out.println("empty");
+		} else {
+			System.out.println("not empty");
+		}
 	}
 	
 	@Test
