@@ -153,10 +153,10 @@ public class AlbumAction extends BaseAction{
 		// 获取画册信息
 		Album album = this.albumService.getAlbumById(uuid) ;
 		String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_COVER_PATH) ;
-		album.setAlbumCover(albumUrl + album.getAlbumCover()) ;
 		
 		// 保存信息
 		map.put("album", album) ;
+		map.put("albumImg", albumUrl + album.getAlbumCover()) ;
 		return "admin/album_update";
 	}
 	
@@ -285,9 +285,9 @@ public class AlbumAction extends BaseAction{
 		AlbumPic pic = this.picService.getPicById(uuid) ;
 
 		String albumUrl = propertiesBean.getProperty(GlobalConstants.CONFIG_NAME, GlobalConstants.ALBUM_PIC_PATH) ;
-		pic.setPicUrl(albumUrl + pic.getPicUrl()) ;
 		// 保存信息
 		map.put("picture", pic) ;
+		map.put("picImg", albumUrl + pic.getPicUrl()) ;
  		return "/admin/picture_update";
 	}
 	
@@ -403,5 +403,27 @@ public class AlbumAction extends BaseAction{
 		System.out.println("alisa:"+album.getAlbumAlias());
 		map.put("alisa", album.getAlbumAlias());
  		return "/admin/album_erwm";
+	}
+	
+	// 照片上移
+	@RequestMapping(params = { "method=shiftUp" }, method = RequestMethod.POST)
+	public void shiftUp(HttpServletResponse response,@RequestParam("uuid") String uuid,@RequestParam("up_uuid") String up_uuid,ModelMap map) {
+		this.picService.shiftUpPic(uuid, up_uuid) ;
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 照片下移
+	@RequestMapping(params = { "method=shiftDown" }, method = RequestMethod.POST)
+	public void shiftDown(HttpServletResponse response,@RequestParam("uuid") String uuid,@RequestParam("down_uuid") String down_uuid,ModelMap map) {
+		this.picService.shiftDownPic(uuid, down_uuid) ;
+		try {
+			response.getWriter().write("") ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

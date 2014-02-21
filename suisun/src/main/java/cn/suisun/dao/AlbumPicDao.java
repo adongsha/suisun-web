@@ -26,4 +26,8 @@ public interface AlbumPicDao {
 	public void deleteById(String uuid) ;
 	
 	public List<AlbumPic> getAllPic();
+	
+	public void shiftUpPic(String uuid,String up_uuid) ;
+	
+	public void shiftDownPic(String uuid,String down_uuid) ;
 }

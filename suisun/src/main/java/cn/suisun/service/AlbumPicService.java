@@ -18,5 +18,10 @@ public interface AlbumPicService {
 	public AlbumPic getPicById(String uuid) ;
 	
 	// 根据ID删除照片
-	public void deleteById(String uuid) ; 
+	public void deleteById(String uuid) ;
+	
+	// 照片上移
+	public void shiftUpPic(String uuid,String up_uuid) ;
+	
+	public void shiftDownPic(String uuid,String down_uuid) ;
 }
