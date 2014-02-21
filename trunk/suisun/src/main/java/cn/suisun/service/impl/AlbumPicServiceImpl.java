@@ -39,5 +39,14 @@ public class AlbumPicServiceImpl implements AlbumPicService {
 	// 根据ID删除照片
 	public void deleteById(String uuid) {
 		this.albumPicDao.deleteById(uuid) ;
-	} 
+	}
+	
+	// 照片上移
+	public void shiftUpPic(String uuid,String up_uuid) {
+		this.albumPicDao.shiftUpPic(uuid, up_uuid) ;
+	}
+	
+	public void shiftDownPic(String uuid,String down_uuid) {
+		this.albumPicDao.shiftDownPic(uuid, down_uuid) ;
+	}
 }
