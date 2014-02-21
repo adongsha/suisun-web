@@ -180,3 +180,33 @@ function deleteAll(){
 		asyncbox.tips("请选择画册图片");
 	}
 }
+
+// 上移
+function shiftUp(uuid,up_uuid){
+	if(up_uuid == 'null'){
+		asyncbox.tips("已是第一张照片");
+		return ;
+	}
+	
+	$.post("u/albumsAction.htm?method=shiftUp", {
+		"uuid" : uuid,
+		"up_uuid" : up_uuid,
+	}, function(data) {
+		window.location.reload() ;
+	});
+}
+
+// 下移
+function shiftDown(uuid,down_uuid){
+	if(down_uuid == 'null'){
+		asyncbox.tips("已是最后一张照片");
+		return ;
+	}
+	
+	$.post("u/albumsAction.htm?method=shiftDown", {
+		"uuid" : uuid,
+		"down_uuid" : down_uuid,
+	}, function(data) {
+		window.location.reload() ;
+	});
+}

@@ -80,7 +80,7 @@
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						<img id="albumImg" src="${album.albumCover}" width="300" height="200">
+						<img id="albumImg" src="${albumImg}" width="300" height="200">
 					</td>
 				</tr>
 				

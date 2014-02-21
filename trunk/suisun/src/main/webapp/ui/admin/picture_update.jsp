@@ -66,7 +66,7 @@
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;padding-left: 50px;">
-						<img id="pictureImg" src="${picture.picUrl}" width="300" height="200">
+						<img id="pictureImg" src="${picImg}" width="300" height="200">
 					</td>
 				</tr>
 				
