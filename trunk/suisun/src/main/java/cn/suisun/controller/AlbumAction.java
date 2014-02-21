@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.jpush.api.main.JPushClientSend;
 import cn.suisun.beans.Album;
 import cn.suisun.beans.AlbumDirectory;
 import cn.suisun.beans.AlbumPic;
@@ -426,4 +428,16 @@ public class AlbumAction extends BaseAction{
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(params = { "method=push" }, method = RequestMethod.POST)
+	@ResponseBody
+	public String push(@RequestParam("tag")String tag){
+		System.out.println("------>"+tag);
+		 if(JPushClientSend.push(tag)){
+			 return "1";
+		 } else {
+			 return "-1";
+		 }
+	}
+	
 }

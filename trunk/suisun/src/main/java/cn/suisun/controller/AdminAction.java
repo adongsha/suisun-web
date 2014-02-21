@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -80,7 +81,13 @@ public class AdminAction extends BaseAction {
 				Integer.parseInt(currentPage), pageSize, power, search);
 		int pageAll = (int) Math.ceil((double) userService.getAountUser(power,
 				search) / pageSize);
-		
+		try {
+			System.out.println("-->"+search);
+			System.out.println("->"+new String(search.getBytes(),"GB2312"));
+			System.out.println("---->中文乱码："+ java.net.URLDecoder.decode(search,"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		map.put("pageAll", pageAll);
 		map.put("currentPage", currentPage);
 		map.put("pageSize", pageSize);
@@ -133,7 +140,7 @@ public class AdminAction extends BaseAction {
 		String fileName = "";
 		
 		if(!logo.isEmpty()){
-			String path = request.getSession().getServletContext().getRealPath("hc-img");
+			String path = request.getSession().getServletContext().getRealPath("upload/logo-img");
 			StringBuffer s = new StringBuffer(String.valueOf(new Date().getTime())).append(".jpg");
 			fileName = s.toString();
 			File temp = new File(path, fileName);
@@ -191,7 +198,7 @@ public class AdminAction extends BaseAction {
 		return "admin/tip";
 	}
 	
-	@RequestMapping(params={"method=editUser"}, method=RequestMethod.GET)
+	@RequestMapping(params={"method=forwardeditUser"}, method=RequestMethod.GET)
 	public String forwardEdit(@RequestParam("id")String id, ModelMap map){
 		map.put("user", getUser());
 		User user = userService.getUserByUid(id);
@@ -213,10 +220,10 @@ public class AdminAction extends BaseAction {
 			HttpServletRequest request,
 			@RequestParam(value = "logo", required = false) MultipartFile logo,
 			@ModelAttribute("userVo") UserVo userVo, ModelMap map) {
-		String fileName = "";
 		User user = userService.getUserByUid(userVo.getUuid());
+		String fileName = user.getLogoUrl();
 		if(!logo.isEmpty()){
-			String path = request.getSession().getServletContext().getRealPath("hc-img");
+			String path = request.getSession().getServletContext().getRealPath("upload/logo-img");
 			StringBuffer s = new StringBuffer(String.valueOf(new Date().getTime())).append(".jpg");
 			fileName = s.toString();
 			File temp = new File(path, fileName);
@@ -236,6 +243,7 @@ public class AdminAction extends BaseAction {
 						delImg.delete();
 					}
 				}
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 				fileName = "";
@@ -249,6 +257,7 @@ public class AdminAction extends BaseAction {
 					e.printStackTrace();
 				}
 			}
+			user.setLogoUrl(fileName);
 		}
 		
 		user.setAddress(userVo.getAddress());
@@ -260,7 +269,7 @@ public class AdminAction extends BaseAction {
 		user.setFax(userVo.getFax());
 		user.setIndustryId(userVo.getIndustry());
 		user.setLinkman(userVo.getLinkman());
-		user.setLogoUrl(fileName);
+		
 		if(!StringUtils.isEmpty(userVo.getPassword())){
 			user.setPassword(MD5Util.string2MD5(userVo.getPassword()));			
 		}
@@ -273,7 +282,7 @@ public class AdminAction extends BaseAction {
 		userService.update(user);
 		map.put("id", userVo.getUuid());
 		map.put("code", 2);
-		setAttribute(GlobalConstants.SESSION_USER, user);
+		//setAttribute(GlobalConstants.SESSION_USER, user);
 		return "admin/tip";
 	}
 	
@@ -293,7 +302,10 @@ public class AdminAction extends BaseAction {
 	
 	@RequestMapping(params="method=getPassword",method=RequestMethod.POST)
 	@ResponseBody
-	public String getPassword(@RequestParam("password")String passwrod){
+	public String getPassword(@RequestParam("password")String passwrod,@RequestParam("npwd")String npwd){
+		if(StringUtils.isEmpty(npwd) && StringUtils.isEmpty(passwrod)){
+			return "true";
+		}
 		String pas = getUser().getPassword();
 		String md5 = MD5Util.convertMD5(pas);
 		if(passwrod.equals(md5)){
