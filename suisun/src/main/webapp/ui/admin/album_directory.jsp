@@ -63,7 +63,7 @@
 											<td valign="top">
 												画册目录
 											</td>
-											<td align="right" valign="top">
+											<td align="right" valign="top" style="font-size: 14">
 												<a href="javascript:void(0);" onclick="forwardAddDirectory()">新建</a>
 											</td>
 										</tr>
@@ -101,17 +101,17 @@
 												// 总行数
 												int row = 0 ;
 												
-												if(size%4 == 0){
-													row = size / 4 ;
+												if(size%3 == 0){
+													row = size / 3 ;
 												}else{
-													row = size / 4 + 1 ;
+													row = size / 3 + 1 ;
 												}
 												
 												for(int i = 0; i < row; i++){
 											%>
 												<tr>				
 											<%
-													for(int j = i*4; j < (i+1)*4; j++){
+													for(int j = i*3; j < (i+1)*3; j++){
 														if(j >= size){
 															break ;
 														}
@@ -120,29 +120,55 @@
 															<td align="center">
 											<% 
 																AlbumPic p = pic.get(j) ;
+																
+																// 上一条照片
+																AlbumPic up_pic = new AlbumPic() ;
+																if(j > 0){
+																	up_pic = pic.get(j-1) ;
+																}
+																
+																// 下一条照片
+																AlbumPic down_pic = new AlbumPic() ;
+																if(j + 1< pic.size()){
+																	down_pic = pic.get(j + 1) ;
+																}
 											%>
-																<div style="background-color: white;margin-top: 10px;">
-																	<a href="javascript:void(0);" onclick="">
-																		<img alt="" src="<%=p.getPicUrl()%>" style="margin: 10px" width="300" height="200"/>
-																	</a>
-																	<table style="width: 100%;">
+																<div style="background-color: white;margin-top: 10px;margin-left: 10px;">
+																	
+																	<table style="width: 90%;height: auto;table-layout: inherit;">
+																	
 																		<tr>
-																			<td width="70%" style="padding-left: 10px;padding-bottom: 10px;">
+																			<td>
+																				<img alt="" src="<%=p.getPicUrl()%>" style="margin-top: 10px" width="300" height="300"/>		
+																			</td>
+																		</tr>
+																		<tr>
+																			<td width="100%" style="padding-left: 5px;padding-bottom: 5px;">
 																				<input type="checkbox" value="<%=p.getUuid()%>" class="<%=i%>"/>
 																				<a href="javascript:void(0);">
 																					<font style="font-size: 14" color="black"><%=p.getPicName()%></font>
 																				</a>
 																			</td>
-																			
-																			<td width="30%" align="right" style="padding-right: 10px;padding-bottom: 10px;">
+																		</tr>
+																			<td width="100%" align="right" style="padding-right: 10px;padding-bottom: 10px;">
+																				<a href="javascript:void(0);" onclick="shiftUp('<%=p.getUuid()%>','<%=up_pic.getUuid()%>')">
+																					<font style="font-size: 12">上移</font>
+																				</a>
+																				<font style="font-size: 12">|</font>
+																				<a href="javascript:void(0);" onclick="shiftDown('<%=p.getUuid()%>','<%=down_pic.getUuid()%>')">
+																					<font style="font-size: 12">下移</font>
+																				</a>
+																				<font style="font-size: 12">|</font>
 																				<a href="javascript:void(0);" id="edit" onclick="editPicture('<%=p.getUuid()%>')">
 																					<font style="font-size: 12">编辑</font>
 																				</a>
 																				<font style="font-size: 12">|</font>
-																				<a style="padding-left: 5px;" href="javascript:void(0);" onclick="deletePicture('<%=p.getUuid()%>')">
+																				<a href="javascript:void(0);" onclick="deletePicture('<%=p.getUuid()%>')">
 																					<font style="font-size: 12">删除</font>
 																				</a>
 																			</td>
+																		<tr>
+																		
 																		</tr>
 																	</table>
 																</div>
