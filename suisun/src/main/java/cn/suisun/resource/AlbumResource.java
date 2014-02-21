@@ -214,14 +214,17 @@ public class AlbumResource {
 				directoryList.add(adJson);
 			}
 			alJson.put("directoryList", directoryList);
-			User user = userService.getUserByAlbumId(album.getUserId());
-			user.setLogoUrl(logoUrl+user.getLogoUrl());
-			JSONObject userJson = JSONObject.fromObject(user);
-			Industry industry = industryService.getIndustryById(user
-					.getIndustryId());
-			JSONObject industryJson = JSONObject.fromObject(industry);
-			userJson.put("industry", industryJson);
-			alJson.put("user", userJson);
+			System.out.println("---------------->"+album.getUserId());
+			User user = userService.getUserByUid(album.getUserId());
+		    if(!StringUtils.isEmpty(user)){
+		    	user.setLogoUrl(logoUrl+user.getLogoUrl());
+		    	JSONObject userJson = JSONObject.fromObject(user);
+		    	Industry industry = industryService.getIndustryById(user
+		    			.getIndustryId());
+		    	JSONObject industryJson = JSONObject.fromObject(industry);
+		    	userJson.put("industry", industryJson);
+		    	alJson.put("user", userJson);
+		    }
 			albumList.add(alJson);
 
 		}
@@ -388,14 +391,22 @@ public class AlbumResource {
 		return result.toString();
 	}
 	
-	@POST
+	@GET
 	@Path("picPraise")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String picPraise(@QueryParam("picId")String picId){
 		AlbumPic pic = albumPicService.getPicById(picId);
-		pic.setPraise(pic.getPraise()+1);
-		albumPicService.update(pic);
 		JSONObject json = new JSONObject();
+		if(StringUtils.isEmpty(pic)){
+			json.put("200", "没有改图片");
+		} else {
+			if(StringUtils.isEmpty(pic.getPraise())){
+				pic.setPraise(1);
+			} else {
+				pic.setPraise(pic.getPraise()+1);
+			}
+		}
+		albumPicService.update(pic);
 		json.put("statuCode", 200);
 		return json.toString();
 	}
