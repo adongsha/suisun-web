@@ -24,7 +24,7 @@ $(function() {
 						
 						if(p == undefined){
 							window.location.href = "u/adminAction.htm?method=page&currentPage=1&power="
-								+ 2 + "&search=" + s;
+								+ 2 + "&search=" + encodeURI(encodeURI(s));
 
 						} else {
 							window.location.href = "u/adminAction.htm?method=page&currentPage=1&power="
@@ -36,7 +36,7 @@ $(function() {
 });
 
 function edit(id) {
-	window.location.href="u/adminAction.htm?method=editUser&id="+id;
+	window.location.href="u/adminAction.htm?method=forwardeditUser&id="+id;
 }
 
 function deleteUser(id) {

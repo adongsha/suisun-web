@@ -76,7 +76,7 @@
 								<div id="confirm-description"></div>
 								<div class="control-group input-append">
 									<input type="password" name="confirm" id="confirm"
-										data-required="true" data-describedby="confirm-description"
+										data-describedby="confirm-description"
 										data-conditional="confirm" data-description="confirm"
 										style="height: 30px;" /> <label for="confirm" class="add-on"><span
 										class="icon-asterisk"></span>确认密码</label>
@@ -254,7 +254,7 @@
 							<div class="btn-group">
 								<button type="submit" class="btn btn-primary">修改</button>
 
-								<button type="reset" class="btn">重置</button>
+							<!-- 	<button type="reset" class="btn">重置</button> -->
 							</div>
 						</form>
 					</div>
@@ -295,11 +295,12 @@
 								},
 								oldpassword : function() {
 									var a = $(this).val();
+									var b = $("#password").val();
 									var flag = $
 											.ajax({
 												url : "u/adminAction.htm?method=getPassword",
 												async : false,
-												data: "password="+a,
+												data: "password="+a+"&npwd="+b,
 												type : "POST"
 											}).responseText;
 									if (flag == "false") {
