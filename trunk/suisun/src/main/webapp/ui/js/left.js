@@ -10,7 +10,7 @@ jQuery(function(){
 	});
 	
 	jQuery("#ico2").click(function(){
-		window.location.href = "u/albumsAction.htm?method=forwardAlbums";
+		window.location.href = "u/albumsAction.htm?method=showAlbums&albumName=&enterpriseName=";
 	});
 	
 	jQuery("#ico3").click(function(){
